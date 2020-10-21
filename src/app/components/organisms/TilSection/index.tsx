@@ -4,9 +4,11 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded'
+import { Link } from 'gatsby'
 import _ from 'lodash'
 import React from 'react'
 
+import { useLatestPostPath } from '../../../hooks/useLatestPost'
 import TilCard from '../../molecules/TilCard'
 
 export const useStyles = makeStyles((theme) => ({
@@ -97,6 +99,8 @@ const TilSection: React.FC = () => {
     }
   ]
 
+  const latestPostPath = useLatestPostPath()
+
   return (
     <Box display="flex" height="120vh" alignItems="center" color="white">
       <Grid container alignItems="center">
@@ -115,11 +119,13 @@ const TilSection: React.FC = () => {
               </Typography>
             </Box>
             <Button
+              component={Link}
               variant="contained"
               color="default"
               className={classes.button}
               classes={{ startIcon: classes.arrowIcon }}
               startIcon={<ArrowForwardRoundedIcon />}
+              to={latestPostPath}
             >
               <Typography variant="button" className={classes.arrowText}>
                 TODAY I LEARNED
@@ -133,12 +139,13 @@ const TilSection: React.FC = () => {
             {_.map(tils, (til) => {
               return (
                 <Box m={3} key={til.title}>
-                  <TilCard
-                    title={til.title}
-                    description={til.description}
-                    mediaImg={til.mediaImg}
-                    onClick={() => {}}
-                  />
+                  <Link to={latestPostPath}>
+                    <TilCard
+                      title={til.title}
+                      description={til.description}
+                      mediaImg={til.mediaImg}
+                    />
+                  </Link>
                 </Box>
               )
             })}

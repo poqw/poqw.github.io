@@ -55,10 +55,9 @@ interface Props {
   title: string
   description: string
   mediaImg: string
-  onClick: () => void
 }
 
-const TilCard: React.FC<Props> = ({ title, description, mediaImg, onClick }) => {
+const TilCard: React.FC<Props> = ({ title, description, mediaImg }) => {
   const classes = useStyles()
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
@@ -73,7 +72,7 @@ const TilCard: React.FC<Props> = ({ title, description, mediaImg, onClick }) => 
       // @ts-ignore
       style={{ transform: props.xys.interpolate(trans) }}
     >
-      <Card className={classes.root} onClick={onClick}>
+      <Card className={classes.root}>
         <Box display="flex" flexDirection="column" className={classes.contentContainer}>
           <CardContent>
             <Typography variant="h3" className={classes.title}>{title}</Typography>
