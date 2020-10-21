@@ -1,0 +1,40 @@
+plugins:
+  - import
+extends:
+  - standard
+rules:
+  arrow-parens:
+    - 2
+    - always
+  no-console: 2
+  no-multiple-empty-lines:
+    - 2
+    - max: 1
+      maxBOF: 0
+  no-shadow: 2
+  object-shorthand:
+    - 2
+    - always
+  quote-props:
+    - 2
+    - as-needed
+  import/no-unresolved:
+    - 2
+    - commonjs: true
+  import/named: 2
+  import/namespace: 2
+  import/default: 2
+  import/export: 2
+  import/newline-after-import: 2
+  import/no-absolute-path: 2
+  import/no-useless-path-segments: 2
+  import/order:
+    - 2
+    - newlines-between: always
+      groups:
+        - builtin
+        - external
+        - internal
+      alphabetize:
+        order: asc
+  jest/no-disabled-tests: 0

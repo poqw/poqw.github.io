@@ -1,0 +1,5 @@
+# TODO(poqw): Make this lint configs simple.
+# TODO(poqw): Separate linters for typescript and javascript files.
+
+extends:
+  - ./linter/.eslintrc.react.yaml

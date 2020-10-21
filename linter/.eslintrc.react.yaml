@@ -1,0 +1,31 @@
+env:
+  browser: true
+  jest: true
+plugins:
+  - react
+  - react-hooks
+  - jest
+extends:
+  - .eslintrc.ts.yaml
+  - plugin:react/recommended
+  - plugin:jest/recommended
+  - plugin:import/react
+settings:
+  react:
+    version: detect
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .ts
+        - .jsx
+        - .tsx
+overrides:
+  - files:
+      - "*.tsx"
+    rules:
+      react/prop-types: off
+      react/jsx-boolean-value: warn
+      react/jsx-tag-spacing: warn
+      react-hooks/rules-of-hooks: error
+      react-hooks/exhaustive-deps: warn

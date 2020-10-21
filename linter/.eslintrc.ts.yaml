@@ -1,0 +1,41 @@
+plugins:
+  - "@typescript-eslint"
+parser:
+  "@typescript-eslint/parser"
+extends:
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+  - .eslintrc.base.yaml
+rules:
+  # To support optional chains.
+  no-unused-expressions:
+    - 0
+  "@typescript-eslint/no-unused-expressions":
+    - 2
+  "no-useless-constructor": "off"
+  "@typescript-eslint/no-useless-constructor":
+    - 2
+  "no-dupe-class-members": "off"
+  "@typescript-eslint/no-dupe-class-members":
+    - 0
+  "@typescript-eslint/no-unused-vars":
+    - 2
+    - ignoreRestSiblings: true
+      argsIgnorePattern: ^_
+  "@typescript-eslint/member-delimiter-style":
+    - 2
+    - multiline:
+        delimiter: none
+  '@typescript-eslint/explicit-function-return-type':
+    - 1
+    - allowExpressions: true
+  '@typescript-eslint/no-empty-function':
+    - 0
+overrides:
+  - files:
+      - "**/*.ts"
+      - "**/*.tsx"
+    rules:
+      no-unused-vars: off
