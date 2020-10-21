@@ -15,6 +15,12 @@ export const useStyles = makeStyles((theme) => ({
     cursor: 'pointer'
   },
   title: {
+    '-webkit-line-clamp': 1,
+    '-webkit-box-orient': 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    whiteSpace: 'pre-line',
     marginBottom: theme.spacing(2)
   },
   description: {
@@ -23,7 +29,10 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     display: '-webkit-box',
-    whiteSpace: 'pre-line'
+    whiteSpace: 'pre-line',
+    [theme.breakpoints.only('xs')]: {
+      '-webkit-line-clamp': 1
+    }
   },
   contentContainer: {
     width: '48%'

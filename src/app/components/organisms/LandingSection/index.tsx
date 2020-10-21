@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     willChange: 'transform, opacity',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '4rem'
+      fontSize: '3rem'
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '3rem'
+      fontSize: '2rem'
     }
   },
   description: {
@@ -24,8 +24,11 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     willChange: 'transform, opacity',
-    [theme.breakpoints.only('xs')]: {
+    [theme.breakpoints.only('sm')]: {
       fontSize: '2rem'
+    },
+    [theme.breakpoints.only('xs')]: {
+      fontSize: '1.5rem'
     }
   }
 }))

@@ -16,10 +16,10 @@ export const useStyles = makeStyles((theme) => ({
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '3.5rem'
+      fontSize: '3rem'
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '3rem'
+      fontSize: '2rem'
     }
   },
   subtitle: {
@@ -29,10 +29,10 @@ export const useStyles = makeStyles((theme) => ({
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '1.8rem'
+      fontSize: '1.5rem'
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '1.5rem',
+      fontSize: '1rem',
       marginTop: theme.spacing(5)
     }
   },

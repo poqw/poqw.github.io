@@ -14,16 +14,22 @@ import React from 'react'
 import { useSpring, animated } from 'react-spring'
 
 export const useStyles = makeStyles((theme) => ({
+  contentContainer: {
+    margin: theme.spacing(3),
+    [theme.breakpoints.only('xs')]: {
+      margin: `0 ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`
+    }
+  },
   title: {
     fontSize: '4rem',
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '3.5rem'
+      fontSize: '3rem'
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '3rem'
+      fontSize: '2rem'
     }
   },
   subtitle: {
@@ -33,18 +39,36 @@ export const useStyles = makeStyles((theme) => ({
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '1.8rem',
-      marginTop: theme.spacing(4)
-    },
-    [theme.breakpoints.only('xs')]: {
       fontSize: '1.5rem',
       marginTop: theme.spacing(3)
+    },
+    [theme.breakpoints.only('xs')]: {
+      fontSize: '1rem',
+      marginTop: theme.spacing(1)
+    }
+  },
+  descriptionContainer: {
+    marginTop: theme.spacing(3),
+    [theme.breakpoints.only('xs')]: {
+      marginTop: theme.spacing(0)
     }
   },
   description: {
     marginTop: theme.spacing(1),
     whiteSpace: 'pre-line',
-    wordBreak: 'keep-all'
+    wordBreak: 'keep-all',
+    [theme.breakpoints.only('xs')]: {
+      marginTop: theme.spacing(0)
+    }
+  },
+  iconContainer: {
+    marginTop: theme.spacing(10),
+    [theme.breakpoints.only('sm')]: {
+      marginTop: theme.spacing(5)
+    },
+    [theme.breakpoints.only('xs')]: {
+      marginTop: theme.spacing(3)
+    }
   },
   iconButton: {
     marginRight: theme.spacing(2),
@@ -62,7 +86,9 @@ export const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.only('xs')]: {
       margin: theme.spacing(1),
-      marginTop: theme.spacing(1)
+      marginTop: theme.spacing(0),
+      width: 48,
+      height: 48
     }
   },
   profileContainer: {
@@ -73,8 +99,14 @@ export const useStyles = makeStyles((theme) => ({
     willChange: 'transform',
     boxShadow: '0px 10px 30px -5px rgba(0, 0, 0, 0.3)',
     [theme.breakpoints.only('sm')]: {
-      maxWidth: 450,
-      maxHeight: 450
+      maxWidth: 550,
+      maxHeight: 550,
+      margin: theme.spacing(5)
+    },
+    [theme.breakpoints.only('xs')]: {
+      maxWidth: 200,
+      maxHeight: 200,
+      margin: theme.spacing(3)
     }
   }
 }))
@@ -126,12 +158,12 @@ const AboutSection: React.FC = () => {
         </Grid>
         <Grid item md={1}> </Grid>
         <Grid item xs={12} md={5}>
-          <Box m={3}>
+          <Box className={classes.contentContainer}>
             <Typography variant="h1" className={classes.title}>ABOUT ME</Typography>
             <Typography variant="h1" className={classes.subtitle}>
               소프트웨어 엔지니어로서 저는,
             </Typography>
-            <Box mt={3}>
+            <Box className={classes.descriptionContainer}>
               <Box pt={2}>
                 <Typography variant="h4" className={classes.description}>
                 TDD로 개발하는 것을 선호합니다.
@@ -157,7 +189,7 @@ const AboutSection: React.FC = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box mt={10}>
+            <Box className={classes.iconContainer}>
               <IconButton
                 className={classes.iconButton}
                 href="https://github.com/poqw"
