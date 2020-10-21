@@ -1,0 +1,126 @@
+{
+  "events": [
+    {
+      "start_date": {
+        "year": "2013",
+        "month": "3"
+      },
+      "end_date": {
+        "year": "2018",
+        "month": "2"
+      },
+      "text": {
+        "headline": "Konkuk Univ. 학사",
+        "text": "CS 기본 지식 (알고리즘, 자료구조, 프로그래밍, OS, 컴퓨터 구조 등) <ul><li>ICOKR 웹 사이트 제작 외주 경험</li><li>NYG iOS 앱 개발 외주 경험(출시)</li></ul>"
+      },
+      "media": {
+        "url": "https://www.konkuk.ac.kr/do/MessageBoard/ArticleFile.do?id=11791556",
+        "thumbnail": "https://upload.wikimedia.org/wikipedia/en/e/e6/KonKukUniv_Logo1.jpg",
+        "caption": "Konkuk University",
+        "link": "https://www.konkuk.ac.kr/do/Index.do",
+        "link_target": "_blank"
+      }
+    },
+    {
+      "start_date": {
+        "year": "2013",
+        "month": "5"
+      },
+      "end_date": {
+        "year": "2015",
+        "month": "12"
+      },
+      "text": {
+        "headline": "FACT (해킹/보안 동아리)",
+        "text": "보안 기본 지식 (OWASP, 메모리 구조, Kali linux, 리버싱 기초, 포렌식 기초 등)<ul><li>CodeGate 외 다수 해킹 대회 출전 경험</li></ul>"
+      },
+      "media": {
+        "url": "https://scontent.ficn1-1.fna.fbcdn.net/v/t1.0-9/s1080x2048/40501134_1318349448305581_180464527094054912_o.jpg?_nc_cat=103&_nc_sid=8bfeb9&_nc_ohc=TWtpZAEOJZEAX__YGDB&_nc_ht=scontent.ficn1-1.fna&tp=7&oh=4600b643a92400e92025b784ea80c3a5&oe=5FB548C5",
+        "thumbnail": "https://scontent.ficn1-1.fna.fbcdn.net/v/t1.0-9/10299969_398762096930992_2371397529809027655_n.png?_nc_cat=103&_nc_sid=09cbfe&_nc_ohc=Hi06wH0WlkAAX-6OAPi&_nc_ht=scontent.ficn1-1.fna&oh=305d3725265c1b47da8a21b9f8ed25c0&oe=5FB37326",
+        "caption": "Security FACT(Family Against Cyber Terror) Club",
+        "link": "https://www.facebook.com/secuFACT/",
+        "link_target": "_blank"
+      }
+    },
+    {
+      "start_date": {
+        "year": "2015",
+        "month": "1"
+      },
+      "end_date": {
+        "year": "2017",
+        "month": "1"
+      },
+      "text": {
+        "headline": "CERT(Korea Air Force)",
+        "text": "NAC, IPS 등 보안 장비 관리, 서버 관리, Python, PHP, JS<ul><li>15-4차 정보보호 보수과정 대상</li><li>공군 보안 공모전 IT 부문 최우수상 (교육사령관 상)</li></ul>"
+      },
+      "media": {
+        "url": "http://www.shinailbo.co.kr/news/photo/201703/561678_300468_5735.jpg",
+        "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Logo_of_the_Republic_of_Korea_Air_Force.png",
+        "caption": "제 2회 공군 사이버 전사 경연대회 본선. 아쉽지만 나(오른쪽에서 두 번째)는 입상하지 못하였다.",
+        "link": "http://www.airforce.mil.kr",
+        "link_target": "_blank"
+      }
+    },
+    {
+      "start_date": {
+        "year": "2017",
+        "month": "12"
+      },
+      "end_date": {
+        "year": "2018",
+        "month": "12"
+      },
+      "text": {
+        "headline": "Skelter Labs SWE Intern",
+        "text": "Android, iOS(Swift), Dagger, Protobuf, Java, Kafka, Jetty, Vue<ul><li>Cue Android, iOS 앱 개발</li><li>Bona wallet iOS, Android 앱 개발</li><li>Data 분석 용 대쉬보드 개발</li></ul>"
+      },
+      "media": {
+        "url": "https://res.heraldm.com/phpwas/restmb_idxmake.php?idx=142&simg=%2Fcontent%2Fimage%2F2017%2F10%2F20%2F20171020000558_0.jpg",
+        "thumbnail": "https://pds.saramin.co.kr/company/logo/202004/10/q8ju7q_5zcu-xpqgb0_logo.png",
+        "caption": "Skelter Labs 회사 성수역 사무실 이미지(이사 전)",
+        "link": "https://www.skelterlabs.com/ko/",
+        "link_target": "_blank"
+      }
+    },
+    {
+      "start_date": {
+        "year": "2018",
+        "month": "12"
+      },
+      "end_date": {
+        "year": "2019",
+        "month": "12"
+      },
+      "text": {
+        "headline": "Skelter Labs SWE (Level 3)",
+        "text": "Android, Kotlin, RxJava, Gradle, Bazel, React, Nodejs<ul><li>Android AWARE SDK 출시 & 배포</li><li>AWARE Dashboard 서버 개발</li></ul>"
+      },
+      "media": {
+        "url": "https://fastly.4sqi.net/img/general/600x600/3994148_0jJtHnQQwnyQijMo-MVOhTprHi34p-tGWUlE90b9TzM.jpg",
+        "thumbnail": "https://pds.saramin.co.kr/company/logo/202004/10/q8ju7q_5zcu-xpqgb0_logo.png",
+        "caption": "Skelter Labs 회사 성수 사거리 사무실 이미지(이사 후)",
+        "link": "https://www.skelterlabs.com/ko/",
+        "link_target": "_blank"
+      }
+    },
+    {
+      "start_date": {
+        "year": "2019",
+        "month": "12"
+      },
+      "text": {
+        "headline": "Skelter Labs SWE (Level 4)",
+        "text": "TDD, BDD, DDD, Design doc, Typescript, React, Nestjs, k8s<ul><li>AIQ portal/console & 서버 개발</li><li>STT Billing Recorder 서버 개발</li><li>Scrum 마스터 경험</li></ul>"
+      },
+      "media": {
+        "url": "https://www.ksvalley.com/data/photos/20190834/art_15662700235499_e71ca9.png",
+        "thumbnail": "https://pds.saramin.co.kr/company/logo/202004/10/q8ju7q_5zcu-xpqgb0_logo.png",
+        "caption": "Skelter Labs 로고",
+        "link": "https://www.skelterlabs.com/ko/",
+        "link_target": "_blank"
+      }
+    }
+  ]
+}

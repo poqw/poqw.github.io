@@ -1,0 +1,13 @@
+.anchorjs-link {
+    transition: all .15s linear;
+}
+*:hover > .anchorjs-link {
+    margin-left: -0.9em !important;
+}
+:target::before {
+    content: "";
+    display: block;
+    margin-top: -80px;
+    height: 80px;
+    width: 1px;
+}

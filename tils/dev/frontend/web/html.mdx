@@ -1,0 +1,330 @@
+# HTML
+
+HTML은 우리가 보는 웹사이트의 기본적인 뼈대를 만들어주는 역할을 한다.
+앞서 브라우져의 동작원리에서 배웠듯이, 렌더링 엔진이 DOM을 생성하는 기준이 되는 것이 바로 HTML이다.
+
+## 왜 사람들은 HTML을 만들었을까
+
+그저 기다란 문장만 수두룩한 인터넷 세상을 생각해보자. 까만 글자가 빽빽히 박혀있는 문서라니, 너무 읽기가 힘들 것이다.
+또, 주제가 복잡하고 내용이 많다면 스압에 못견뎌 창을 닫을 지도 모른다.
+때문에 문서의 단락을 나누고, 문서 간에 링크를 걸어 정보에 대한 가독성을 높이려는 노력들이 생기기 시작했고, 그 중 문장들 사이에 태그를 남겨
+어디서부터 어디까지가 단락인지 표시하도록 하거나, 태그에 주소를 집어넣어 다른 문서로 이동할 수 있게끔 하자는 아이디어가 생기게 됐다.
+
+결국 1990년에 위와 같은 스펙에 맞추어 HTTP와 HTML이 동시에 탄생하게되고 얼마 지나지 않아 하이퍼미디어 세상이 열리게 된다.
+
+## Markup Language
+
+HTML(HyperText Markup Language) 에서 Markup Language 라 함은, HTML이 어떠한 로직이 들어간 프로그래밍 언어가 아니라
+어떠한 문서의 형식을 미리 정해진 규약에 맞추어 표현한 것이라는 뜻이다.
+이와 같은 맥락에서 HTML은 프로그래밍 언어라고 부르지 않는다(듣는 개발자 움찔한다).
+
+> **Markup vs Markdown 차이**
+> 
+> Markdown 하면 Markup 의 반대를 뜻하는 것처럼 보이지만, 실은 lightweight(경량화) 시킨 것이다.
+> 즉, Markup은 Markdown을 포함하는 관계에 있으며, Markup은 일반적인 formatting을 의미하는 반면,
+> Markdown은 Text-to-HTML 만을 표방한다.
+
+## HTML의 구조
+
+아주 간단한 HTML 예시를 살펴보자.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+  </head>
+  <body>
+    <h1>This is a Heading</h1>
+    <p>This is a paragraph.</p>
+    <img alt="This is an image." src="https://poqw.github.io/assets/images/Logo.png" />
+  </body>
+</html>
+```
+
+`<html>`은 이 태그로부터 HTML 이 시작됨을 알린다.
+
+`<head>`는 문서의 메타데이터를 담는다. 메타데이터란 데이터에 대한 데이터를 의미하는데, 이는 곧 이 HTML문서 자체에 대한 정보를 담고 있다는 뜻이 된다.
+여기에 명시되는 정보들은 웹 페이지에 시각적으로 표시되진 않으며, 이 문서의 제목, 설명, 인코딩, 뷰포트 등에 관한 정보가 담긴다.
+
+`<body>`는 웹 페이지에서 우리에게 시각적으로 보여지는 부분, 즉 문서의 몸통이다. 여러가지 태그들(`h1`, `p`, `img` 등)을 안에 담아 문서의 구조를 표현할 수 있다.
+
+`<!DOCTYPE html>`은 DTD(Document Type Definition) 이라 하며(HTML tag가 아니다), 어떤 HTML 버전을 쓸 것인지 명시해준다.
+위와 같이 선언했을 경우 HTML5를 쓰겠다는 이야기가 된다. 만약 명시를 하지 않을 경우 브라우져 마다 서로 다른 HTML 버전을 사용하여 파싱을 할 수 있으므로
+모든 브라우져에서 웹사이트가 동일하게 보여지길 원한다면 반드시 명시를 해주어야 한다.
+
+
+### 내가 만든 HTML을 브라우져에서 보고 싶다면?
+
+파일을 일단 저장부터 해야 한다. 파일 이름은 무엇이든지 상관없지만, 확장자는 `html`로 해야 한다.
+
+예컨대 위에 나와있는 html 마크업을 복사하여 새 문서에 붙여넣자.
+`hello-world.html` 이름으로 파일을 저장했다면, Finder에서 이 파일을 찾아 마우스로 끌어다 드래그 앤 드롭으로 크롬에다가 떨어뜨리면 된다.
+
+## HTML Tag
+
+위에서 잠깐 소개된 Tag를 살펴보면 아래와 같다. 주의할 점은, 한 번 열린 태그는 (다른 이름의 닫힌 태그가 오기 전에) 반드시 닫아주어야 한다는 것이다.
+
+```html
+<태그 이름 속성="속성 값">태그 내용</태그 이름>
+
+<!-- 내용이 없다면 아래와 같이 사용하기도 한다. -->
+<태그 이름 속성="속성 값" />
+```
+
+참고로 위에서 `<!-- -->`로 감싸진 부분은 주석을 의미하며, 브라우져는 이 부분을 파싱하지 않고 건너뛰게 된다.
+
+즉, 다음과 같은 마크업은:
+```html
+<p>This is a paragraph</p>
+<!-- <h1> This is a comment</h1> -->
+```
+
+다음과 같이 보여진다:
+
+<div style="background-color: #eeeeee; padding: 1em;">
+  <p>This is a paragraph</p>
+</div>
+
+### HTML Meta Tag
+
+위에서 `<head>`안에는 문서의 메타데이터를 담는다고 했는데, 이 메타데이터를 표현해 주는 것이 바로 `<meta>` 태그이다.
+바꿔 말하면, 이 태그들은 항상 `<head>`안에 있어야 한다. 문서가 아닌, 문서 자체에 대한 정보이므로 화면 상에 보여지지 않으며, 따라서 이 정보들의
+사용 주체는 우리들이 아니라 브라우져다. 그럼 어떤 정보들이 브라우져에게 필요할까? 꼭 알아야하는 것들만 정리했다.
+
+#### title
+
+이 태그는 문서의 제목을 명시한다. 문서의 제목은 그냥 body에 쓰면 될 것 같은데, 굳이 이 태그가 중요한 이유는 여기에 쓰인 내용이
+브라우져의 텝에 쓰여지기 때문이다. 실제로 아래처럼 마크업을 바꿔보면 탭에 있는 글자가 바뀌는 것을 볼 수 있다.
+
+```html
+<title>나는 탭에 보여진다</title>
+```
+
+#### description
+
+이 태그는 문서의 설명을 명시한다. 이 태그가 중요한 이유는 사이트에 방문하기 전에 밖에서 보여지기 때문이다.
+
+```html
+<meta name="description" content="인생을 살아가다 지혜가 쌓이면 종종 커밋하러 오는 레포지토리." />
+```
+
+가령 내 블로그의 description은 위와 같은데, 아래처럼 구글에서 미리 보여지고 있는 걸 확인할 수 있다.
+(물론 naver 같은데서 봐도 확인이 가능하다)
+
+![box layout](../../../../assets/images/html_1.png)
+
+#### charset
+
+charset은 character set의 약자로, 문서가 어떤 형식으로 인코딩 되어야 하는 가를 나타낸다. 세상에는 여러가지 언어가 있고, 인코딩 방식에 따라
+어떤 언어는 웹상에서 보여지지 않고 그냥 깨져버리기도 한다. 이런 불편함을 해소하기 위해 전세계에 존재하는 거의 대부분의 문자를 표현할 수 있는 charset이 생겼는데
+다음과 같이 사용할 수 있다.
+
+```html
+<meta charset="UTF-8" />
+```
+
+HTML5에서는 UTF-8을 표준으로 정했지만, 이를 따르지 않는 브라우져들이 꽤 있다.
+예를 들어 이 태그를 심지 않은 채 Safari 로 열면 한글이 다 깨져버리는 진풍경을 볼 수 있다. (버전 13.1.2)
+
+#### viewport
+
+viewport는 사용자에게 '시각적으로' 보여지는 화면이다. 그 말은 즉, 같은 웹페이지라 할 지라도 모니터 크기가 작다면 viewport가 서로 다르다는 의미다.
+따라서 주로 모바일 화면에서 어떻게 보여질지를 브라우져에게 알려주기 위해 사용된다.
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+모바일 디바이스에서도 가독성있게 잘 보여지길 원한다면 위 태그를 넣어주면 된다. 반드시 알아야할 필요는 없지만, 위 태그가 무슨 일을 하는지 궁금한 사람을 위해:
+
+- `width=device-width`: 디바이스의 너비로 웹 페이지의 너비를 결정한다.
+- `initial-scale`: 확대 레벨을 정의한다. 1.0은 디바이스 화면 크기에 맞추어 축소/확대를 시키지 않겠다는 의미이다.
+
+#### og
+
+og 태그를 지정하면 메신저같은 곳에 사이트에 대한 썸네일이나 description을 가져와서 보여줄 수 있게 된다.
+
+```html
+<head>
+  <meta property="og:site_name" content="Your Website Name Here"/>
+  <meta property="og:title" content="Yourtitle goes here, about 90 characters in length."/>
+  <meta property="og:description" content="description of URL that is about 300 characters in length."/>
+  <meta property="og:image" content="YOURIMAGEURL.JPG" />
+  <meta property="og:type" content="blog"/>
+  <meta property="og:url" content="http://yourURL.com/">
+</head>
+```
+
+여기까지 해서 meta 태그는 `charset`과 `viewport` 등등 5개가 소개되었는데, 나머지 메타태그를 더 공부하고 싶다면 [w3schools](https://www.w3schools.com/tags/tag_meta.asp) 를 방문해보자.
+
+> **HTML Tag 는 전부 알아야 할까?**
+>
+> 아니다. HTML 태그에는 꽤 많은 종류가 있지만, 개발을 하다보면 자연스레 알게 되기도 하고 개중에는 심지어 더 이상 쓰이지 않도록 권장되는 태그들도 있기 때문이다.
+> 하지만 가장 자주 쓰이는 태그들을 알고 넘어가는 건 도움이 된다.
+> [advancedwebranking](https://www.advancedwebranking.com/html/#overview) 의 통계자료가 도움이 될 것이다.
+
+### 의미론적 HTML 태그들(HTML Semantic Elements)
+
+의미론적 태깅은 각 태그를 의미에 맞게 잘 사용해야 한다는 의미를 담고 있다. HTML5가 들어서면서 문서의 통상적인 구조를 표현하기 위한 태그를 따로 정의하게 되었다.
+그전까지는 전부 `<div>`라는 태그를 사용했는데, 이 태그가 마크업에 난무하면서 뭐가 뭔지 알아보기 힘들게 되었기 때문이다.
+
+아래는 Semantic tag 중에서도 자주 쓰이는 태그들이다.
+
+- `<header>` :화면의 상단에 위치하는 사이트나 문서의 전체적인 정보를 정의
+- `<main>` :문서에서 가장 중심이 되는 컨텐츠를 정의
+- `<article>` :본문을 정의
+- `<section>` :문서의 구획들을 정의 (참고)
+- `<footer>` :화면의 하단에 위치하는 사이트나 문서의 전체적인 정보를 정의
+- `<nav>` :문서의 네비게이션 항목을 정의
+- `<aside>` :광고와 같이 페이지의 내용과는 관계가 적은 내용들을 정의
+
+아래는 좀 덜 쓰이는 Semantic 태그들이다. 실은 아래 태그들은 지금까지 개발하면서 단 한번도 마주친 적이 없었다.
+
+- `<details>` :기본적으로 화면에 표시되지 않는 정보들을 정의
+- `<figure>` :삽화나 다이어그램과 같은 부가적인 요소를 정의
+- `<mark>` :참조나 하이라이트 표시를 필요로 하는 문자를 정의
+- `<time>` :시간을 정의
+
+이 태그들은 사실상 `<div>`와 같은 효과를 내지만, 상징적인 의미를 가진다고 생각하면 되겠다. `<div>` 태그에 대해서는 아래에서 설명한다.
+
+## Block & Inline
+
+Body에 사용되는 태그(요소)에는 2가지 종류가 있는데, 이는 Block Element 와 Inline Element 로 나눌 수 있다.
+
+### Block Element
+
+기본적으로 줄바꿈이 일어나는 형태로 너비가 상위 영역의 전체 너비만큼 해당된다.
+
+```html
+<h5>블록 요소:</h5>
+<p>여기 있는 요소들은 블록 형태이기 때문에</p>
+<div>줄바꿈이 일어난다.</div>
+```
+
+이들은 다음과 같이 보여진다.
+
+<div style="background-color: #eeeeee; padding: 1em;">
+  <h5>블록 요소:</h5>
+  <p>여기 있는 요소들은 블록 형태이기 때문에</p>
+  <div>줄바꿈이 일어난다.</div>
+</div>
+
+블록 요소들은 기본적으로 다른 요소들을 포함할 수 있도록 설계되었으며, 문서의 제목을 쓰거나 레이아웃을 잡는 데 쓰인다.
+
+`div` 태그 같은 경우 자기 자신을 중첩할 수 있으면서 아무런 효과를 지니지 않는 블록 요소이므로 특히 레이아웃을 잡는 데 사용된다.
+즉, 다음과 같이 사용이 가능하다.
+
+```html
+<div>
+  <div>
+    <div>
+      <div>
+  ...
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+... Semantic Elements 가 왜 생기게 되었는지 짐작이 가지 않는가?
+
+### Inline Element
+
+다음은 줄바꿈이 일어나지 않는 요소들이다.
+
+```html
+<strong>인라인 요소:</strong>
+<a href="https://poqw.github.io"> 여기 있는 요소들은 인라인 형태이기 때문에 </a>
+<span>줄바꿈이 일어나지 않는다.</span>
+```
+
+이들은 다음과 같이 보여진다.
+
+<div style="background-color: #eeeeee; padding: 1em;">
+  <strong>인라인 요소:</strong>
+  <a href="https://poqw.github.io"> 여기 있는 요소들은 인라인 형태이기 때문에 </a>
+  <span>줄바꿈이 일어나지 않는다.</span>
+</div>
+
+인라인 요소들은 기본적으로 다른 요소들을 포함할 수 없도록 설계되었으며, 문서의 내용을 나타내는 데 쓰인다.
+
+`span` 태그는 마치 `div` 처럼 자기 자신을 중첩할 수 있으면서 아무런 효과를 가지지 않는 인라인 요소이다.
+주로 텍스트를 부분적으로 꾸며야 할 일이 있을 때 사용된다.
+
+## Form
+
+Form 은 조금 특별하다. 다른 태그들과는 달리 여러 태그들의 정보를 묶어 서버에 정보를 전달하기 때문이다.
+여기서 말하는 서버는 웹사이트를 호스팅해주는 웹서버가 될 수도 있고, 또 다른 서버가 될 수 도 있는데, 이는 인프라를 구성하기 나름이다.
+하지만 여기서 거기까지 알 필요는 없고, `<form>`을 어떻게 사용하는지만 알면 된다.
+
+```html
+<form action="http://localhost/register" method="post">
+  <p>아이디 : <input type="text" name="id" /></p>
+  <p>비밀번호 : <input type="password" name="password" /></p>
+  <p>닉네임 : <input type="text" name="nickname" /></p>
+  <button type="submit">회원가입</button>
+</form>
+```
+
+`action`은 URI 를 입력해준다. `submit`되면 해당 URI로 HTTP 메시지를 URI로 보내게 된다. `method`는 HTTP의 메소드를 나타낸다.
+이 때, `input` 태그들은 `form` 태그 안의 태그이므로 `form`의 자식 태그라고 부른다. `form`은 자신의 자식 태그들을 묶어서 다음과 같은 형태로 전송하는데,
+개발자 도구에서 확인이 가능하다.
+
+```javascript
+id=hyungsun&password=p@ssw0rd&nickname=poqw
+```
+
+### Form Validation
+
+만약 어떤 필드가 반드시 값이 채워져야 한다면 `required` 속성을 사용할 수도 있다. 이 속성이 세팅되어 있는 태그에 값이 채워지지 않는다면
+submit 버튼을 누르더라도 submit이 진행되지 않는다.
+
+```html
+<form action="http://localhost/register" method="post">
+  <p>아이디 : <input type="text" name="id" required /></p>
+  <p>비밀번호 : <input type="password" name="password" required /></p>
+  <p>닉네임 : <input type="text" name="nickname" /></p>
+  <button type="submit">회원가입</button>
+</form>
+```
+
+값을 채우지 않은 채 submit 버튼을 누르면 브라우져에서 validation error UI 를 보여준다. 하지만 이 UI는 브라우져마다 다른데다가
+심지어 내가 힘들게 만든 웹사이트랑 따로 노는 경우가 많기 때문에 이 속성을 쓰지 않고 Javascript로 처리하는 경우가 더 많다.
+
+마크업을 다음과 같이 변경해보자.
+
+```html
+<form name="form" action="http://localhost/register" method="post" onsubmit="return validateForm()">
+  <p>아이디 : <input type="text" name="id" /></p>
+  <p>비밀번호 : <input type="password" name="password" /></p>
+  <p>닉네임 : <input type="text" name="nickname" /></p>
+  <button type="submit">회원가입</button>
+</form>
+```
+
+`<head>` 안에 `<script>` 태그를 열고 닫아 아래 스크립트를 삽입할 수 있다.
+
+```javascript
+function validateForm() {
+  const form = document.forms['form']
+  if (form.id.value === '' || form.password.value === '') {
+    alert('아이디와 패스워드는 필수 입력 사항입니다.')
+    return false
+  }
+
+  return true
+}
+```
+
+`onsubmit`에 내가 만든 javascript 함수가 쓰인 걸 볼 수 있을 것이다. 이 함수는 아이디나 비밀번호가 비어있다면 alert를 띄우는 역할을 한다.
+javascript 로 하여금 어떤 form을 검사해야 하는지 알려주기 위해 `name`이라는 속성을 사용한 것에 주목하자.
+
+위 예제는 아주 간단했지만, 이를 더 발전시켜 비밀번호의 패턴을 검사하거나, 아이디에 길이 제한을 두는 등 여러가지 유효값 검증을 할 수 있다.
+
+## HTML Best Practices
+
+Best Practices는 노하우/꿀팁과 비슷한 맥락인데, 그 보단 훨씬 더 '되도록이면 따르는 게 좋은' 정도의 레벨이라고 생각하면 좋다.
+[여기서](https://github.com/hail2u/html-best-practices/blob/master/README.ko.md) 는 그 노하우들을 소개한다.
+
+읽다보면 이해가 되는 것도 있고, 안되는 것도 있을 텐데 굳이 지금 다 알려고 할 필요는 없다. 이해되는 것들만이라도 확실하게 지켜주면 그걸로 충분하다.

@@ -1,0 +1,14 @@
+.command-line-prompt {
+    border-right: 0;
+    margin-right: 0;
+}
+
+/* Prompt for all users */
+.command-line-prompt > span[data-user]:before {
+    content: "$";
+}
+
+/* Prompt for root */
+.command-line-prompt > span[data-user="root"]:before {
+    content: "#";
+}
