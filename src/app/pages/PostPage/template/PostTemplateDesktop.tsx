@@ -6,7 +6,7 @@ import Header from '../../../components/organisms/Header'
 
 const SIDEBAR_SIZE = 256
 
-const BaseTemplateDesktop: React.FC = ({ children }) => (
+const PostTemplateDesktop: React.FC = ({ children }) => (
   <Box position="relative">
     <Header sidebarWidth={SIDEBAR_SIZE} />
     <Box ml={SIDEBAR_SIZE / 8}>
@@ -17,4 +17,4 @@ const BaseTemplateDesktop: React.FC = ({ children }) => (
   </Box>
 )
 
-export default BaseTemplateDesktop
+export default PostTemplateDesktop

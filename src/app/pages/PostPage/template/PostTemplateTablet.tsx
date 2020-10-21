@@ -3,13 +3,13 @@ import React from 'react'
 
 import Header from '../../../components/organisms/Header'
 
-const SIDEBAR_SIZE = 224
+const SIDEBAR_SIZE = 256
 
-const BaseTemplateMobile: React.FC = ({ children }) => (
+const PostTemplateTablet: React.FC = ({ children }) => (
   <Box position="relative">
     <Header sidebarWidth={SIDEBAR_SIZE} />
     {children}
   </Box>
 )
 
-export default BaseTemplateMobile
+export default PostTemplateTablet

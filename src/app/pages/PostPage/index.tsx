@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import SEO from '../../components/atoms/SEO'
 import Post, { PostProps } from '../../components/organisms/Post'
 import { useAllPosts } from '../../hooks/useAllPosts'
-import BaseTemplate from '../base/BaseTemplate'
+import PostTemplate from './template'
 
 interface Props extends RouteComponentProps {
   postName?: string
@@ -24,12 +24,12 @@ const PostPage: React.FC<Props> = ({ postName }) => {
   }, [allPosts, postName])
 
   return (
-    <BaseTemplate>
+    <PostTemplate>
       <SEO title={currentPost.name} />
       { currentPost &&
         <Post {...currentPost} />
       }
-    </BaseTemplate>
+    </PostTemplate>
   )
 }
 
