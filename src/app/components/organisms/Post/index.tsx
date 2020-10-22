@@ -20,28 +20,26 @@ import TableOfContents, { TableOfContentsProps } from '../TableOfContents'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    minHeight: '100vh',
     [theme.breakpoints.up('md')]: {
       minWidth: theme.breakpoints.values.md,
       marginRight: '250px',
       paddingTop: theme.spacing(12),
       paddingLeft: theme.spacing(6),
       paddingRight: theme.spacing(6),
-      paddingBottom: theme.spacing(10),
-      marginBottom: theme.spacing(10)
+      paddingBottom: theme.spacing(10)
     },
     [theme.breakpoints.only('sm')]: {
       paddingTop: theme.spacing(11),
       paddingLeft: theme.spacing(4),
       paddingRight: theme.spacing(4),
-      paddingBottom: theme.spacing(8),
-      marginBottom: theme.spacing(8)
+      paddingBottom: theme.spacing(8)
     },
     [theme.breakpoints.down('xs')]: {
       paddingTop: theme.spacing(10),
       paddingLeft: theme.spacing(4),
       paddingRight: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
-      marginBottom: theme.spacing(4)
+      paddingBottom: theme.spacing(4)
     }
   },
   tocContainer: {
