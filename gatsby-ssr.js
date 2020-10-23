@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 import React from 'react'
 
-export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostBodyComponents }) => {
+export const onRenderBody = ({ setHeadComponents }) => {
   setHeadComponents([
+    // TimelineJS: There is no npm package supported for this lib.
     <link
       key="timeline-css"
       title="timeline-styles"
@@ -15,20 +18,4 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
       async
     />
   ])
-  // setPreBodyComponents([
-  //   <script
-  //     key="timeline"
-  //     src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"
-  //     type="text/javascript"
-  //     async
-  //   />
-  // ])
-  // setPostBodyComponents([
-  //   <script
-  //     key="timeline"
-  //     src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"
-  //     type="text/javascript"
-  //     async
-  //   />
-  // ])
 }
