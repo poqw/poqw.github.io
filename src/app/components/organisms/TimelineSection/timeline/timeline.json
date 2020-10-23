@@ -6,7 +6,7 @@
         "month": "3"
       },
       "end_date": {
-        "year": "2018",
+        "year": "2019",
         "month": "2"
       },
       "text": {
@@ -32,12 +32,12 @@
       },
       "text": {
         "headline": "FACT (해킹/보안 동아리)",
-        "text": "보안 기본 지식 (OWASP, 메모리 구조, Kali linux, 리버싱 기초, 포렌식 기초 등)<ul><li>CodeGate 외 다수 해킹 대회 출전 경험</li></ul>"
+        "text": "보안 기본 지식 (OWASP, 메모리 구조, Kali linux, 리버싱 기초, 포렌식 기초 등)<ul><li>CodeGate 외 다수 해킹 대회 출전 경험</li><li>웹해킹 & 머신 러닝 관련 세미나</li></ul>"
       },
       "media": {
-        "url": "https://scontent.ficn1-1.fna.fbcdn.net/v/t1.0-9/s1080x2048/40501134_1318349448305581_180464527094054912_o.jpg?_nc_cat=103&_nc_sid=8bfeb9&_nc_ohc=TWtpZAEOJZEAX__YGDB&_nc_ht=scontent.ficn1-1.fna&tp=7&oh=4600b643a92400e92025b784ea80c3a5&oe=5FB548C5",
+        "url": "https://scontent.ficn1-1.fna.fbcdn.net/v/t1.0-9/21616407_1040988106041718_7285087015864736152_n.jpg?_nc_cat=103&ccb=2&_nc_sid=8bfeb9&_nc_ohc=7MJf9VJfU4MAX-lB7F_&_nc_ht=scontent.ficn1-1.fna&oh=24994d1799065655b9ba57c4f1a13467&oe=5FB5645E",
         "thumbnail": "https://scontent.ficn1-1.fna.fbcdn.net/v/t1.0-9/10299969_398762096930992_2371397529809027655_n.png?_nc_cat=103&_nc_sid=09cbfe&_nc_ohc=Hi06wH0WlkAAX-6OAPi&_nc_ht=scontent.ficn1-1.fna&oh=305d3725265c1b47da8a21b9f8ed25c0&oe=5FB37326",
-        "caption": "Security FACT(Family Against Cyber Terror) Club",
+        "caption": "동아리 내부에서 세미나를 진행하는 모습 (본인)",
         "link": "https://www.facebook.com/secuFACT/",
         "link_target": "_blank"
       }
@@ -73,7 +73,7 @@
         "month": "12"
       },
       "text": {
-        "headline": "Skelter Labs SWE Intern",
+        "headline": "Skelter Labs SWE(Intern)",
         "text": "Android, iOS(Swift), Dagger, Protobuf, Java, Kafka, Jetty, Vue<ul><li>Cue Android, iOS 앱 개발</li><li>Bona wallet iOS, Android 앱 개발</li><li>Data 분석 용 대쉬보드 개발</li></ul>"
       },
       "media": {
@@ -94,7 +94,7 @@
         "month": "12"
       },
       "text": {
-        "headline": "Skelter Labs SWE (Level 3)",
+        "headline": "Skelter Labs SWE(Lv 3)",
         "text": "Android, Kotlin, RxJava, Gradle, Bazel, React, Nodejs<ul><li>Android AWARE SDK 출시 & 배포</li><li>AWARE Dashboard 서버 개발</li></ul>"
       },
       "media": {
@@ -111,7 +111,7 @@
         "month": "12"
       },
       "text": {
-        "headline": "Skelter Labs SWE (Level 4)",
+        "headline": "Skelter Labs SWE(Lv 4)",
         "text": "TDD, BDD, DDD, Design doc, Typescript, React, Nestjs, k8s<ul><li>AIQ portal/console & 서버 개발</li><li>STT Billing Recorder 서버 개발</li><li>Scrum 마스터 경험</li></ul>"
       },
       "media": {

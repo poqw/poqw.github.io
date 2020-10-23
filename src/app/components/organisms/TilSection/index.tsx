@@ -13,12 +13,12 @@ import TilCard from '../../molecules/TilCard'
 
 export const useStyles = makeStyles((theme) => ({
   title: {
-    fontSize: '4rem',
+    fontSize: '3rem',
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '3rem'
+      fontSize: '2.5rem'
     },
     [theme.breakpoints.only('xs')]: {
       fontSize: '2rem'
@@ -26,12 +26,12 @@ export const useStyles = makeStyles((theme) => ({
   },
   subtitle: {
     marginTop: theme.spacing(10),
-    fontSize: '2rem',
+    fontSize: '1.7rem',
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '1.5rem'
+      fontSize: '1.3rem'
     },
     [theme.breakpoints.only('xs')]: {
       fontSize: '1rem',
@@ -105,40 +105,38 @@ const TilSection: React.FC = () => {
     <Box display="flex" height="120vh" alignItems="center" color="white">
       <Grid container alignItems="center">
         <Grid item xs={12} md={5}>
-          <Box m={3}>
-            <Typography variant="h1" className={classes.title}>TIL: Today I Learned</Typography>
-            <Typography variant="h1" className={classes.subtitle}>
+          <Typography variant="h1" className={classes.title}>TIL: Today I Learned</Typography>
+          <Typography variant="h1" className={classes.subtitle}>
               저는 끊임없이 배우고, 기록하며, 지식을 나눕니다.
+          </Typography>
+          <Box mt={3}>
+            <Typography variant="body1" className={classes.description}>
+              {'그 과정에서 항상 \'왜?\' 라는 질문에 답하기 위해 노력합니다.'}
             </Typography>
-            <Box mt={3}>
-              <Typography variant="body1" className={classes.description}>
-                {'그 과정에서 항상 \'왜?\' 라는 질문에 답하기 위해 노력합니다.'}
-              </Typography>
-              <Typography variant="body1" className={classes.description}>
-                그리고 이 모든 노력이 제가 더 나은 개발자가 될 수 있게 해줄 것이라 믿습니다.
-              </Typography>
-            </Box>
-            <Button
-              component={Link}
-              variant="contained"
-              color="default"
-              className={classes.button}
-              classes={{ startIcon: classes.arrowIcon }}
-              startIcon={<ArrowForwardRoundedIcon />}
-              to={latestPostPath}
-            >
-              <Typography variant="button" className={classes.arrowText}>
-                TODAY I LEARNED
-              </Typography>
-            </Button>
+            <Typography variant="body1" className={classes.description}>
+              그리고 이 모든 노력이 제가 더 나은 개발자가 될 수 있게 해줄 것이라 믿습니다.
+            </Typography>
           </Box>
+          <Button
+            component={Link}
+            variant="contained"
+            color="default"
+            className={classes.button}
+            classes={{ startIcon: classes.arrowIcon }}
+            startIcon={<ArrowForwardRoundedIcon />}
+            to={latestPostPath}
+          >
+            <Typography variant="button" className={classes.arrowText}>
+                TODAY I LEARNED
+            </Typography>
+          </Button>
         </Grid>
         <Grid item md={1}> </Grid>
         <Grid item xs={12} md={6}>
           <Box mt={5}>
             {_.map(tils, (til) => {
               return (
-                <Box m={3} key={til.title}>
+                <Box mb={3} key={til.title}>
                   <Link to={latestPostPath}>
                     <TilCard
                       title={til.title}

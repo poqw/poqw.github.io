@@ -3,30 +3,32 @@ import Box from '@material-ui/core/Box'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import React, { useEffect } from 'react'
 
+const TIMELINE_EMBED_ID = 'timeline-embed'
+
 export const useStyles = makeStyles((theme) => ({
   title: {
-    marginBottom: theme.spacing(15),
-    fontSize: '4rem',
+    marginTop: theme.spacing(12),
+    marginBottom: theme.spacing(12),
+    fontSize: '3rem',
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '3.5rem',
-      marginBottom: theme.spacing(10)
+      fontSize: '2.5rem',
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6)
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '3rem',
-      marginBottom: theme.spacing(5)
+      fontSize: '2rem',
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3)
     }
   }
 }))
 
 const initTimeline = (source): void => {
   const options = {
-    type: 'timeline',
     source,
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    embed_id: 'timeline-embed',
     // eslint-disable-next-line @typescript-eslint/camelcase
     initial_zoom: 1,
     // eslint-disable-next-line @typescript-eslint/camelcase
@@ -36,7 +38,7 @@ const initTimeline = (source): void => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   // eslint-disable-next-line no-undef
-  window.timeline = new TL.Timeline('timeline-embed', source, options)
+  window.timeline = new TL.Timeline(TIMELINE_EMBED_ID, source, options)
 }
 
 const TimelineSection: React.FC = () => {
@@ -51,15 +53,11 @@ const TimelineSection: React.FC = () => {
   }, [])
 
   return (
-    <Box
-      height="80vh"
-      display="flex"
-      flexDirection="column"
-      py={4}
-      alignItems="center"
-    >
-      <Typography variant="h1" className={classes.title}>EXPERIENCE</Typography>
-      <div id="timeline-embed" />
+    <Box height="90vh">
+      <Box display="flex" justifyContent="center">
+        <Typography variant="h1" className={classes.title}>EXPERIENCE</Typography>
+      </Box>
+      <div id={TIMELINE_EMBED_ID} />
     </Box>
   )
 }

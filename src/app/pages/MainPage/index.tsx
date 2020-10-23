@@ -15,7 +15,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
     <Parallax pages={4} scrolling>
       <ParallaxLayer offset={0} speed={0.5}>
         <Box>
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
             <LandingSection />
           </Container>
         </Box>
@@ -37,27 +37,25 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         <Box bgcolor="rgba(20, 30, 60, 0.9)" height="100%" width="100%" style={{
           clipPath: 'polygon(0 0%, 100% 5%, 100% 100%, 0 95%)'
         }}>
-          <Container maxWidth="xl">
-            <Box >
-              <TilSection />
-            </Box>
+          <Container maxWidth="lg">
+            <TilSection />
           </Container>
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={2} speed={1.3} factor={1.2}>
-        <Box bgcolor="white" height="100%" width="100%" display="flex" alignItems="center">
+      <ParallaxLayer offset={2} speed={0.5} factor={1.1}>
+        <Box bgcolor="white" height="100%" width="100%">
           <Container maxWidth="xl">
             <TimelineSection />
           </Container>
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={3} speed={0.5} factor={1.2}>
+      <ParallaxLayer offset={3} speed={0.3} factor={1.2}>
         <Box bgcolor="rgba(20, 150, 120, 0.7)" height="100%" width="100%" style={{
           clipPath: 'polygon(0 5%, 100% 0%, 100% 95%, 0 100%)'
         }}>
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
             <AboutSection />
           </Container>
         </Box>
@@ -65,7 +63,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
 
       <ParallaxLayer offset={3.95} speed={0.2}>
         <Box bgcolor="rgba(40, 40, 40, 0.3)" height="100%" width="100%" >
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
             <FooterSection />
           </Container>
         </Box>

@@ -15,32 +15,31 @@ import { useSpring, animated } from 'react-spring'
 
 export const useStyles = makeStyles((theme) => ({
   contentContainer: {
-    margin: theme.spacing(3),
     [theme.breakpoints.only('xs')]: {
       margin: `0 ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`
     }
   },
   title: {
-    fontSize: '4rem',
+    fontSize: '3rem',
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '3rem'
+      fontSize: '2.5rem'
     },
     [theme.breakpoints.only('xs')]: {
       fontSize: '2rem'
     }
   },
   subtitle: {
-    marginTop: theme.spacing(5),
-    fontSize: '2rem',
+    marginTop: theme.spacing(2),
+    fontSize: '1.7rem',
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
-      fontSize: '1.5rem',
-      marginTop: theme.spacing(3)
+      fontSize: '1.3rem',
+      marginTop: theme.spacing(1)
     },
     [theme.breakpoints.only('xs')]: {
       fontSize: '1rem',
@@ -48,7 +47,7 @@ export const useStyles = makeStyles((theme) => ({
     }
   },
   descriptionContainer: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
     [theme.breakpoints.only('xs')]: {
       marginTop: theme.spacing(0)
     }
@@ -58,16 +57,26 @@ export const useStyles = makeStyles((theme) => ({
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     [theme.breakpoints.only('xs')]: {
+      fontSize: '1.1rem',
+      marginTop: theme.spacing(0)
+    }
+  },
+  subDescription: {
+    fontSize: '1rem',
+    marginTop: theme.spacing(1),
+    whiteSpace: 'pre-line',
+    wordBreak: 'keep-all',
+    [theme.breakpoints.only('xs')]: {
       marginTop: theme.spacing(0)
     }
   },
   iconContainer: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(6),
     [theme.breakpoints.only('sm')]: {
-      marginTop: theme.spacing(5)
+      marginTop: theme.spacing(4)
     },
     [theme.breakpoints.only('xs')]: {
-      marginTop: theme.spacing(3)
+      marginTop: theme.spacing(2)
     }
   },
   iconButton: {
@@ -168,7 +177,7 @@ const AboutSection: React.FC = () => {
                 <Typography variant="h4" className={classes.description}>
                 TDD로 개발하는 것을 선호합니다.
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" className={classes.subDescription}>
                 - 그것이 깔끔한 코드를 만드는 가장 좋은 방법이라 믿기 때문입니다.
                 </Typography>
               </Box>
@@ -176,7 +185,7 @@ const AboutSection: React.FC = () => {
                 <Typography variant="h4" className={classes.description}>
                 Agile 개발 방법론의 철학을 따릅니다.
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" className={classes.subDescription}>
                 - 정적인 기획보다 동적인 피드백이 프로젝트를 더 옳은 방향으로 이끈다고 생각하기 때문입니다.
                 </Typography>
               </Box>
@@ -184,7 +193,7 @@ const AboutSection: React.FC = () => {
                 <Typography variant="h4" className={classes.description}>
                 배움에 열정이 있는 팀을 갈망합니다.
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" className={classes.subDescription}>
                 - 함께 성장하는 것이야말로 가장 큰 시너지라고 생각하기 때문입니다.
                 </Typography>
               </Box>
