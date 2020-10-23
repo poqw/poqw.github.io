@@ -15,14 +15,17 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     [theme.breakpoints.only('sm')]: {
       fontSize: '2.5rem',
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6)
+      marginTop: theme.spacing(8),
+      marginBottom: theme.spacing(8)
     },
     [theme.breakpoints.only('xs')]: {
       fontSize: '2rem',
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3)
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6)
     }
+  },
+  timelineContainer: {
+    height: '70vh'
   }
 }))
 
@@ -53,11 +56,13 @@ const TimelineSection: React.FC = () => {
   }, [])
 
   return (
-    <Box height="90vh">
+    <Box height="100vh">
       <Box display="flex" justifyContent="center">
         <Typography variant="h1" className={classes.title}>EXPERIENCE</Typography>
       </Box>
-      <div id={TIMELINE_EMBED_ID} />
+      <div className={classes.timelineContainer}>
+        <div id={TIMELINE_EMBED_ID} />
+      </div>
     </Box>
   )
 }

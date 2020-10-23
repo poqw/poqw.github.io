@@ -43,7 +43,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={2} speed={0.5} factor={1.1}>
+      <ParallaxLayer offset={2} speed={0.5} factor={1}>
         <Box bgcolor="white" height="100%" width="100%">
           <Container maxWidth="xl">
             <TimelineSection />
