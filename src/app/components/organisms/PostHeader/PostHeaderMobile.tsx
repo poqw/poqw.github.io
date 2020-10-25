@@ -43,13 +43,13 @@ const PostHeaderMobile: React.FC<PostHeaderContentProps> = ({ title, titleLinkPa
       <AppBar>
         <Toolbar disableGutters>
           <Container>
-            <Box display="flex" justifyContent="space-between">
-              <IconButton onClick={toggleDrawer}>
-                <MenuIcon />
-              </IconButton>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
               <Link to={titleLinkPath}>
                 <Typography variant="h5" color="textPrimary">{title}</Typography>
               </Link>
+              <IconButton onClick={toggleDrawer}>
+                <MenuIcon />
+              </IconButton>
             </Box>
           </Container>
         </Toolbar>

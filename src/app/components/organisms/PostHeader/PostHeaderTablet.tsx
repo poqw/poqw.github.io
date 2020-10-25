@@ -22,7 +22,11 @@ const useStyles = makeStyles<Theme, { sidebarWidth: number }>({
   }
 })
 
-const PostHeaderTablet: React.FC<PostHeaderContentProps> = ({ title, titleLinkPath, sidebarWidth }) => {
+const PostHeaderTablet: React.FC<PostHeaderContentProps> = ({
+  title,
+  titleLinkPath,
+  sidebarWidth
+}) => {
   const classes = useStyles({ sidebarWidth })
   const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -46,10 +50,7 @@ const PostHeaderTablet: React.FC<PostHeaderContentProps> = ({ title, titleLinkPa
       <AppBar>
         <Toolbar disableGutters>
           <Container>
-            <Box display="flex" justifyContent="space-between">
-              <IconButton onClick={toggleDrawer}>
-                <MenuIcon />
-              </IconButton>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
               <Link to={titleLinkPath}>
                 <Typography
                   variant="h4"
@@ -59,6 +60,9 @@ const PostHeaderTablet: React.FC<PostHeaderContentProps> = ({ title, titleLinkPa
                   {title}
                 </Typography>
               </Link>
+              <IconButton onClick={toggleDrawer}>
+                <MenuIcon />
+              </IconButton>
             </Box>
           </Container>
         </Toolbar>
