@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import React from 'react'
 
-import Header from '../../../components/organisms/Header'
+import PostHeader from '../../../components/organisms/PostHeader'
 
 const SIDEBAR_SIZE = 256
 
@@ -18,7 +18,7 @@ const PostTemplateDesktop: React.FC = ({ children }) => {
 
   return (
     <Box>
-      <Header sidebarWidth={SIDEBAR_SIZE} />
+      <PostHeader sidebarWidth={SIDEBAR_SIZE} />
       <Box className={classes.root}>
         <Box ml={SIDEBAR_SIZE / 8}>
           <Container>

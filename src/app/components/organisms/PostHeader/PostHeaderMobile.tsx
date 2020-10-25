@@ -11,7 +11,7 @@ import { Link } from 'gatsby'
 import React, { useCallback, useState } from 'react'
 
 import Sidebar from '../Sidebar'
-import { HeaderContentProps } from './HeaderContentProps'
+import { PostHeaderContentProps } from './PostHeaderContentProps'
 
 const useStyles = makeStyles<Theme, { sidebarWidth: number }>({
   swipeableDrawer: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles<Theme, { sidebarWidth: number }>({
   }
 })
 
-const HeaderMobile: React.FC<HeaderContentProps> = ({ title, titleLinkPath, sidebarWidth }) => {
+const PostHeaderMobile: React.FC<PostHeaderContentProps> = ({ title, titleLinkPath, sidebarWidth }) => {
   const classes = useStyles({ sidebarWidth })
   const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -58,4 +58,4 @@ const HeaderMobile: React.FC<HeaderContentProps> = ({ title, titleLinkPath, side
   )
 }
 
-export default HeaderMobile
+export default PostHeaderMobile

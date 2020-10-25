@@ -7,13 +7,20 @@ import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 import AboutSection from '../../components/organisms/AboutSection'
 import FooterSection from '../../components/organisms/FooterSection'
 import LandingSection from '../../components/organisms/LandingSection'
+import MainHeader from '../../components/organisms/MainHeader'
 import TilSection from '../../components/organisms/TilSection'
 import TimelineSection from '../../components/organisms/TimelineSection'
 
 const MainPage: React.FC<RouteComponentProps> = () => {
   return (
     <Parallax pages={4} scrolling>
-      <ParallaxLayer offset={0} speed={0.5}>
+      <ParallaxLayer offset={0} speed={-0.1} factor={0.2}>
+        <Container maxWidth="lg">
+          <MainHeader />
+        </Container>
+      </ParallaxLayer>
+
+      <ParallaxLayer offset={0.2} speed={0.5} factor={0.8}>
         <Box>
           <Container maxWidth="lg">
             <LandingSection />

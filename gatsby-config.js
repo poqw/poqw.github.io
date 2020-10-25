@@ -2,7 +2,7 @@
 
 module.exports = {
   siteMetadata: {
-    title: 'Portilog',
+    title: 'PORTILOG',
     description: 'Portfolio + TIL(Today I learned) + Blog for me.',
     author: 'Hyungsun Song <hssongng@gmail.com>'
   },

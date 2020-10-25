@@ -8,7 +8,7 @@ import { Link } from 'gatsby'
 import React from 'react'
 
 import Sidebar from '../Sidebar'
-import { HeaderContentProps } from './HeaderContentProps'
+import { PostHeaderContentProps } from './PostHeaderContentProps'
 
 const useStyles = makeStyles<Theme, { sidebarWidth: number }>({
   appbar: {
@@ -20,7 +20,11 @@ const useStyles = makeStyles<Theme, { sidebarWidth: number }>({
   }
 })
 
-const HeaderDesktop: React.FC<HeaderContentProps> = ({ title, titleLinkPath, sidebarWidth }) => {
+const PostHeaderDesktop: React.FC<PostHeaderContentProps> = ({
+  title,
+  titleLinkPath,
+  sidebarWidth
+}) => {
   const classes = useStyles({ sidebarWidth })
 
   return (
@@ -47,4 +51,4 @@ const HeaderDesktop: React.FC<HeaderContentProps> = ({ title, titleLinkPath, sid
   )
 }
 
-export default HeaderDesktop
+export default PostHeaderDesktop

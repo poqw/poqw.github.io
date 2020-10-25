@@ -61,7 +61,7 @@ const LandingSection: React.FC = () => {
   })
 
   return (
-    <Box display="flex" alignItems="center" height="100vh">
+    <Box display="flex" alignItems="center" height="65vh">
       <Box>
         {transitions.map(({ item, props }, index) => (
           <animated.div key={index} style={props}>

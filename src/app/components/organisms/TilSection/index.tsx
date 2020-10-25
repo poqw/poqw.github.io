@@ -11,7 +11,7 @@ import React from 'react'
 import { useLatestPostPath } from '../../../hooks/useLatestPost'
 import TilCard from '../../molecules/TilCard'
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: '3rem',
     whiteSpace: 'pre-line',
