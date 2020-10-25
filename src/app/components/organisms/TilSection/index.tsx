@@ -39,7 +39,6 @@ export const useStyles = makeStyles((theme) => ({
     }
   },
   description: {
-    marginTop: theme.spacing(1),
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all'
   },
@@ -47,8 +46,9 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '24px',
     fontWeight: 'bold'
   },
-  arrowText: {
-    marginLeft: theme.spacing(2),
+  buttonText: {
+    marginLeft: theme.spacing(1.5),
+    marginRight: theme.spacing(1.5),
     fontSize: '24px',
     fontWeight: 'bold',
     [theme.breakpoints.only('xs')]: {
@@ -126,8 +126,8 @@ const TilSection: React.FC = () => {
             startIcon={<ArrowForwardRoundedIcon />}
             to={latestPostPath}
           >
-            <Typography variant="button" className={classes.arrowText}>
-                TODAY I LEARNED
+            <Typography variant="button" className={classes.buttonText}>
+                TIL 보러가기
             </Typography>
           </Button>
         </Grid>
