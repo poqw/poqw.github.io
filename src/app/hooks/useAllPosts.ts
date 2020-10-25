@@ -1,10 +1,16 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
 
-import { PostProps } from '../components/organisms/Post'
+import { TableOfContentsProps } from '../components/organisms/TableOfContents'
 import { TIL_DIR_NAME } from './constants'
 
-export const useAllPosts = (): PostProps[] => {
+export interface TilProps {
+  body: string
+  name: string
+  toc: TableOfContentsProps
+}
+
+export const useAllPosts = (): TilProps[] => {
   const { allMdx } = useStaticQuery(graphql`
     {
       allMdx {

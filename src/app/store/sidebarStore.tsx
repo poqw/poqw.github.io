@@ -1,10 +1,11 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react'
 
 type State = {
+  isDrawerOpened: boolean
   [key: string]: boolean
 }
 
-type ActionType = 'ITEM_CLICKED'
+type ActionType = 'ITEM_CLICKED' | 'DRAWER_TOGGLED'
 
 interface Payload {
   clickedItemName: string
@@ -16,6 +17,7 @@ export interface SidebarAction {
 }
 
 const initialState: State = {
+  isDrawerOpened: false,
   cook: false,
   dev: true
 }
@@ -28,6 +30,8 @@ export const useSidebarDispatch = (): Dispatch<SidebarAction> => useContext(Disp
 
 const authReducer = (state: State, action: SidebarAction): State => {
   switch (action.type) {
+    case 'DRAWER_TOGGLED':
+      return { ...state, isDrawerOpened: !state.isDrawerOpened }
     case 'ITEM_CLICKED':
       return { ...state, [action.payload.clickedItemName]: !state[action.payload.clickedItemName] }
     default:

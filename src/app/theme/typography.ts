@@ -6,35 +6,35 @@ const FONT_FAMILY = ['Noto Sans KR', 'sans-serif'].join(',')
 export const typography: TypographyOptions = {
   h1: {
     fontFamily: FONT_FAMILY,
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
   },
   h2: {
     fontFamily: FONT_FAMILY,
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
   },
   h3: {
     fontFamily: FONT_FAMILY,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
   },
   h4: {
     fontFamily: FONT_FAMILY,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
   },
   h5: {
     fontFamily: FONT_FAMILY,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
@@ -60,13 +60,13 @@ export const typography: TypographyOptions = {
   },
   body1: {
     fontFamily: FONT_FAMILY,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'normal',
     letterSpacing: 'normal'
   },
   body2: {
     fontFamily: FONT_FAMILY,
-    fontSize: '1em',
+    fontSize: 16,
     fontWeight: 'normal',
     letterSpacing: 'normal'
   },

@@ -6,7 +6,7 @@ import { TIL_DIR_NAME } from './constants'
 
 const toDisplayName = (name: string): string => (name.split('.')[0]).replace(/[_|-]/g, ' ')
 
-export const useAllDirectories = (): Directory => {
+export const useTilRootDirectory = (): Directory => {
   const { allMdx } = useStaticQuery(graphql`
     {
       allMdx(sort: {fields: fileAbsolutePath}) {

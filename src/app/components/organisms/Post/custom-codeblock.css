@@ -1,0 +1,7 @@
+pre[class*="language-"] {
+    color: #ccc;
+    background: #4a4a4f;
+    font-family: Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, Consolas;
+    font-size: 85%;
+    border-radius: 4px;
+}

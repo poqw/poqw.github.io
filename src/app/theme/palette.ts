@@ -142,11 +142,11 @@ export const palette = {
     main: color._light['0']
   },
   secondary: {
-    main: color._green['500']
+    main: color._green['200']
   },
   text: {
-    primary: color._dark['500'],
-    secondary: color._dark['400']
+    primary: color._dark['400'],
+    secondary: color._dark['300']
   },
   ...color
 }

@@ -6,11 +6,22 @@ import React from 'react'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderLeft: `4px solid ${theme.palette._green[300]}`
+    maxHeight: 800,
+    overflowY: 'auto',
+    color: 'gray',
+    '&::-webkit-scrollbar': {
+      width: 0
+    }
   },
   link: {
     textDecoration: 'none',
-    color: theme.palette._dark[500]
+    color: theme.palette._dark[200],
+    '& :hover': {
+      fontWeight: 'bold'
+    }
+  },
+  title: {
+    fontSize: '11px'
   }
 }))
 
@@ -27,14 +38,17 @@ export interface TableOfContentsProps {
 const TableOfContents: React.FC<TableOfContentsProps> = ({ items }) => {
   const classes = useStyles()
   const tableOfContent = items[0]
+  if (_.isEmpty(tableOfContent.items)) {
+    return null
+  }
 
   const renderNestedToc = (tocItems, depth = 1): React.ReactNode => {
     return _.map(tocItems, (item: TableOfContents) => {
       if (_.isEmpty(item.items)) {
         return (
           <a className={classes.link} href={item.url} key={item.url}>
-            <Box pl={depth * 2}>
-              <Typography variant="caption">{item.title}</Typography>
+            <Box pl={depth}>
+              <Typography variant="caption" className={classes.title}>{item.title}</Typography>
             </Box>
           </a>
         )
@@ -43,8 +57,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items }) => {
       return (
         <>
           <a className={classes.link} href={item.url} key={item.url}>
-            <Box pl={depth * 2}>
-              <Typography variant="caption">{item.title}</Typography>
+            <Box pl={depth}>
+              <Typography variant="caption" className={classes.title}>{item.title}</Typography>
             </Box>
           </a>
           {renderNestedToc(item.items, depth + 1)}
@@ -54,12 +68,12 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items }) => {
   }
 
   return (
-    <>
+    <Box className={classes.root}>
       <Typography variant="body2">목차</Typography>
-      <Box mt={1} className={classes.root}>
+      <Box mt={1} className={classes.tocContainer}>
         {renderNestedToc(tableOfContent.items)}
       </Box>
-    </>
+    </Box>
   )
 }
 

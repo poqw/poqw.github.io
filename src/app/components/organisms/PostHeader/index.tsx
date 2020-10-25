@@ -1,38 +1,40 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { Desktop, Mobile, Tablet } from '../../../hoc/responsive'
-import { useSiteMetadata } from '../../../hooks/useSiteMetadata'
-import { PostHeaderContentProps } from './PostHeaderContentProps'
-import PostHeaderDesktop from './PostHeaderDesktop'
-import PostHeaderMobile from './PostHeaderMobile'
-import PostHeaderTablet from './PostHeaderTablet'
+import { useSidebarDispatch } from '../../../store/sidebarStore'
+import { TilHeaderContentProps } from './TilHeaderContentProps'
+import TilHeaderDesktop from './TilHeaderDesktop'
+import TilHeaderMobile from './TilHeaderMobile'
+import TilHeaderTablet from './TilHeaderTablet'
 
 interface Props {
-  sidebarWidth: number
+  logo: React.ReactNode
 }
 
-const PostHeader: React.FC<Props> = ({ sidebarWidth }) => {
-  const { title } = useSiteMetadata()
+const TilHeader: React.FC<Props> = ({ logo }) => {
+  const sidebarDispatch = useSidebarDispatch()
+  const onMenuButtonClick = useCallback(() => {
+    sidebarDispatch({ type: 'DRAWER_TOGGLED' })
+  }, [sidebarDispatch])
 
-  const props: PostHeaderContentProps = {
-    title,
-    titleLinkPath: '/',
-    sidebarWidth
+  const props: TilHeaderContentProps = {
+    logo,
+    onMenuButtonClick
   }
 
   return (
     <>
       <Mobile>
-        <PostHeaderMobile {...props} />
+        <TilHeaderMobile {...props} />
       </Mobile>
       <Tablet>
-        <PostHeaderTablet {...props} />
+        <TilHeaderTablet {...props} />
       </Tablet>
       <Desktop>
-        <PostHeaderDesktop {...props} />
+        <TilHeaderDesktop {...props} />
       </Desktop>
     </>
   )
 }
 
-export default PostHeader
+export default TilHeader

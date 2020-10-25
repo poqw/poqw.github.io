@@ -14,7 +14,7 @@ export const H1: React.FC = ({
 }) => {
   const classes = useH1Styles()
   return (
-    <Typography className={classes.root} variant="h1" color="textPrimary">
+    <Typography className={classes.root} variant="h1" color="textSecondary">
       {children}
     </Typography>
   )
@@ -32,7 +32,7 @@ export const H2: React.FC = ({
 }) => {
   const classes = useH2Styles()
   return (
-    <Typography className={classes.root} variant="h2" color="textPrimary">
+    <Typography className={classes.root} variant="h2" color="textSecondary">
       {children}
     </Typography>
   )
@@ -50,7 +50,7 @@ export const H3: React.FC = ({
 }) => {
   const classes = useH3Styles()
   return (
-    <Typography className={classes.root} variant="h3" color="textPrimary">
+    <Typography className={classes.root} variant="h3" color="textSecondary">
       {children}
     </Typography>
   )
@@ -68,7 +68,7 @@ export const H4: React.FC = ({
 }) => {
   const classes = useH4Styles()
   return (
-    <Typography className={classes.root} variant="h4" color="textPrimary">
+    <Typography className={classes.root} variant="h4" color="textSecondary">
       {children}
     </Typography>
   )
@@ -86,7 +86,7 @@ export const H5: React.FC = ({
 }) => {
   const classes = useH5Styles()
   return (
-    <Typography className={classes.root} variant="h5" color="textPrimary">
+    <Typography className={classes.root} variant="h5" color="textSecondary">
       {children}
     </Typography>
   )
@@ -104,7 +104,7 @@ export const H6: React.FC = ({
 }) => {
   const classes = useH6Styles()
   return (
-    <Typography className={classes.root} variant="h6" color="textPrimary">
+    <Typography className={classes.root} variant="h6" color="textSecondary">
       {children}
     </Typography>
   )
@@ -122,7 +122,7 @@ export const P: React.FC = ({
 }) => {
   const classes = usePStyles()
   return (
-    <Typography className={classes.root} variant="body1" color="textPrimary">
+    <Typography className={classes.root} variant="body1" color="textSecondary">
       {children}
     </Typography>
   )
