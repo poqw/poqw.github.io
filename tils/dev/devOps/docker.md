@@ -66,3 +66,19 @@ docker exec -it b80353d7e482 /bin/bash
 - i (interactive): 인터렉티브 모드로 도커를 실행시킨다.
 - t (tts): pseudo-TTY 를 할당한다.
 - d (detach): 명령어를 Background 에서 실행시킨다.
+
+### File copy
+
+Host에서 Container로 파일(혹은 디렉토리)를 옮기고 싶은 경우:
+
+```bash
+docker cp [hostFilePath] [container_name]:[containerPath]
+```
+
+Container에서 Host로 파링ㄹ을 옮기고 싶은 경우:
+
+```bash
+docker cp [container_name]:[containerPath] [hostFilePath]
+```
+
+copy는 container가 running상태가 아니어도 가능하다.
