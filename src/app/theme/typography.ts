@@ -6,7 +6,7 @@ const FONT_FAMILY = ['Noto Sans KR', 'sans-serif'].join(',')
 export const typography: TypographyOptions = {
   h1: {
     fontFamily: FONT_FAMILY,
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
