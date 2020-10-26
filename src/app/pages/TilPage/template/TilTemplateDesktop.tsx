@@ -14,8 +14,8 @@ const TilTemplateDesktop: React.FC<TilTemplateContentProps> = ({
   toc
 }) => (
   <Box bgcolor="white" display="flex" justifyContent="space-between">
-    <Box bgcolor="rgba(20, 150, 120, 0.03)" flexGrow={1} />
-    <Box width={SIDEBAR_WIDTH} bgcolor="rgba(20, 150, 120, 0.03)">
+    <Box bgcolor="rgba(20, 150, 120, 0.1)" flexGrow={1} />
+    <Box width={SIDEBAR_WIDTH} bgcolor="rgba(20, 150, 120, 0.1)">
       <Box py={3} pr={4}>
         {logo}
       </Box>
