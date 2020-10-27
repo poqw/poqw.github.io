@@ -26,6 +26,41 @@
 startup command가 실행되면서 프로세스를 생성한다. 이 프로세스는 namespace가 같은 자원, 즉 아까 풀어졌던 snapshot만
 바라보기 때문에, 머신에 이미 설치되어 있던 다른 deps들과 충돌할 일이 없어진다. 이는 프로세스 네임스페이싱이라고 한다.
 
+## Dockerfile 에 대한 이해
+
+다음은 간단한 `Dockerfile` 예시다.
+
+```dockerfile
+FROM alpine
+
+RUN apk and --update redis
+
+CMD ["redis-server"]
+```
+
+Dockerfile은 `docker build .` 명령어로 Docker image를 만들어 낼 수 있다. 참고로, 맨 뒤의 `.`은 build context라고 부른다.
+`Dockerfile` 이 저장되어 있는 디렉토리의 위치다.
+
+이 `build` 커맨드는 매 명령어 라인 마다 임시 컨테이너(intermediate container) 이미지를 만든다. 아주 자세하게 그 과정을 들여다 보면 다음과 같다.
+
+1. alpine 이라는 이미지를 도커 허브에서 다운받은 뒤 메모리에 떠 있는 컨테이너에 올린다.
+2. 파일 시스템을 스냅샷을 찍어 로컬에 새로운 임시 컨테이너 이미지를 만든다.
+3. 2 에서 만들었던 임시 컨테이너 이미지를 메모리에 올린 뒤, `apk and --update redis` 명령어를 실행한다.
+4. 2 에서 만들었던 임시 컨테이너 이미지를 삭제하고 새로운 임시 컨테이너를 만들어 파일 시스템 스냅샷을 뜨고 저장한다.
+5. 4 에서 만들었던 임시 컨테이너 이미지를 불러와 메모리에 올린 뒤 `redis-server`를 primary process command(startup command)로 지정한다.
+6. 4 에서 만들었던 임시 컨테이너 이미지를 삭제하고 새로운 임시 컨테이너를 만들어 파일 시스템 스냅샷을 뜨고 저장한다.
+
+만약 우리가 `Dockerfile` 을 수정하게 된다면, 도커는 캐싱을 한다. 예를 들어, `RUN` 커맨드를 `CMD` 앞에 하나 더 추가한다고 하더라도
+`docker build .`를 하게 되면 1~4 까지의 스탭은 스킵된다. 즉, 사실은 삭제하면서 캐시에 저장해둔다는 것이다.   
+
+### Image Tagging
+
+Dockerfile을 자유자재로 다룰 수 있게 되었다면, image에 버전 태깅을 해볼 수도 있다. `-t` 옵션을 주면 된다.
+
+```bash
+docker build -t [docker ID]/[repo/project name]:[version | latest] .
+```
+
 ## docker 명령어
 
 사실 명령어는 [여기서](https://docs.docker.com/engine/reference/commandline/docker/) 다 볼 수 있다.
