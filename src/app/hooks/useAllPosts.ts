@@ -2,7 +2,6 @@ import { graphql, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
 
 import { TableOfContentsProps } from '../components/organisms/TableOfContents'
-import { TIL_DIR_NAME } from './constants'
 
 export interface TilProps {
   body: string
@@ -15,9 +14,9 @@ export const useAllPosts = (): TilProps[] => {
     {
       allMdx {
         nodes {
-          fileAbsolutePath
           body
           tableOfContents
+          slug
         }
       }
     }
@@ -26,11 +25,12 @@ export const useAllPosts = (): TilProps[] => {
   return _.map(
     allMdx.nodes,
     (node) => {
-      const postPaths = node.fileAbsolutePath.split('/')
-      const postName = postPaths[postPaths.length - 1].split('.')[0]
+      const postPaths = node.slug.split('/')
+      const postName = postPaths[postPaths.length - 1]
+
       return ({
         body: node.body,
-        path: node.fileAbsolutePath.split(`${TIL_DIR_NAME}`)[1],
+        path: node.slug,
         name: postName,
         toc: node.tableOfContents
       })
