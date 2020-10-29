@@ -15,5 +15,5 @@ export const useLatestPostPath = (): string => {
   `)
 
   const path = (_.first(allFile.edges) as any).node.relativePath
-  return `/til/${(_.last(path.split('/')) as any).split('.')[0]}`
+  return `/til/${path.split('.')[0]}`
 }
