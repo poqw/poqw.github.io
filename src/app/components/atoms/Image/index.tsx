@@ -6,11 +6,11 @@ import React from 'react'
 
 const useStyles = makeStyles((theme) => ({
   imageContainer: {
+    maxWidth: '100%',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
     padding: theme.spacing(1)
   },
   root: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     marginBottom: theme.spacing(1),
