@@ -1,5 +1,8 @@
 # Vim tips
 
+![Vim](https://www.lifewire.com/thmb/h5UtiGx55BQd5CV0DlAs3PDt98g=/839x499/filters:fill(auto,1)/YXRHQMN8q9-2065126366d243adb89b73a732920087.png)
+
+
 이 문서에서는 vim 을 사용하면서 유용하지만 자주 까먹게 되는 팁들을 적는다.
 
 ## Undo & Redo
