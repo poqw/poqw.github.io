@@ -4,13 +4,24 @@ module.exports = {
   siteMetadata: {
     title: 'PORTILOG',
     description: 'Portfolio + TIL(Today I learned) + Blog for me.',
-    author: 'Hyungsun Song <hssongng@gmail.com>'
+    author: 'Hyungsun Song <hssongng@gmail.com>',
+    siteUrl: 'https://poqw.github.io'
   },
   plugins: [
     // Local plugins.
     'gatsby-plugin-global-layout',
 
     // External plugins.
+    'gatsby-plugin-typescript',
+    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://poqw.github.io',
+        sitemap: 'https://post.github.io/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
     'gatsby-plugin-material-ui',
     'gatsby-plugin-react-helmet',
     {
@@ -66,10 +77,6 @@ module.exports = {
         display: 'minimal-ui',
         icon: 'assets/images/gatsby-icon.png'
       }
-    },
-    {
-      resolve: 'gatsby-plugin-create-client-paths',
-      options: { prefixes: ['/til/*'] }
     }
   ]
 }

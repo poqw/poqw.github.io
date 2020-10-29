@@ -6,7 +6,7 @@ import { useSiteMetadata } from '../../../hooks/useSiteMetadata'
 export interface SEOPros {
   lang?: string
   meta?: []
-  title: string
+  title?: string
   description?: string
 }
 

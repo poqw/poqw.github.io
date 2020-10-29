@@ -35,13 +35,14 @@
     "gatsby": "~2.24.80",
     "gatsby-image": "~2.3.1",
     "gatsby-link": "~2.4.13",
-    "gatsby-plugin-create-client-paths": "~2.3.10",
     "gatsby-plugin-manifest": "~2.3.3",
     "gatsby-plugin-material-ui": "~2.1.9",
     "gatsby-plugin-mdx": "~1.2.28",
     "gatsby-plugin-react-helmet": "~3.2.1",
+    "gatsby-plugin-robots-txt": "~1.5.3",
     "gatsby-plugin-sharp": "~2.6.10",
-    "gatsby-plugin-typescript": "~2.3.1",
+    "gatsby-plugin-sitemap": "~2.4.17",
+    "gatsby-plugin-typescript": "~2.4.25",
     "gatsby-react-router-scroll": "~3.0.12",
     "gatsby-remark-images": "~3.3.20",
     "gatsby-remark-prismjs": "~3.5.4",
@@ -69,6 +70,7 @@
     "eslint-plugin-jest": "~23.8.2",
     "gh-pages": "~3.0.0",
     "standard": "~14.3.3",
+    "ts-node": "~9.0.0",
     "typescript": "~3.8.3"
   }
 }

@@ -14,7 +14,7 @@ import { useSidebarDispatch, useSidebarState } from '../../../store/sidebarStore
 
 export interface Directory {
   displayName: string
-  name: string
+  path: string
   children?: Directory[]
 }
 
@@ -45,9 +45,10 @@ const DirectoryList: React.FC<Props> = ({ directory }) => {
       if (_.isEmpty(child.children)) {
         return (
           <ListItem
-            button component={Link}
-            to={`/til/${child.name}`}
-            key={child.displayName}
+            button
+            component={Link}
+            to={child.path}
+            key={child.path}
             className={classes.link}
           >
             <Box pl={directoryDepth}>
@@ -58,13 +59,16 @@ const DirectoryList: React.FC<Props> = ({ directory }) => {
       }
 
       return (
-        <div key={child.displayName}>
-          <ListItem button onClick={() => {
-            sidebarDispatch({
-              type: 'ITEM_CLICKED',
-              payload: { clickedItemName: child.displayName }
-            })
-          }}>
+        <div key={child.path}>
+          <ListItem
+            button
+            onClick={() => {
+              sidebarDispatch({
+                type: 'ITEM_CLICKED',
+                payload: { clickedItemName: child.displayName }
+              })
+            }}
+          >
             <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
               <Box pl={directoryDepth}>
                 <Typography variant="body2" className={classes.displayName}>
@@ -86,12 +90,15 @@ const DirectoryList: React.FC<Props> = ({ directory }) => {
 
   return (
     <List>
-      <ListItem button onClick={() => {
-        sidebarDispatch({
-          type: 'ITEM_CLICKED',
-          payload: { clickedItemName: directory.displayName }
-        })
-      }}>
+      <ListItem
+        button
+        onClick={() => {
+          sidebarDispatch({
+            type: 'ITEM_CLICKED',
+            payload: { clickedItemName: directory.displayName }
+          })
+        }}
+      >
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
           <Typography variant="body1" className={classes.displayName}>
             {directory.displayName}

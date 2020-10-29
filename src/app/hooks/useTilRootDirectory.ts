@@ -2,42 +2,43 @@ import { graphql, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
 
 import { Directory } from '../components/organisms/DirectoryList'
-import { TIL_DIR_NAME } from './constants'
 
 const toDisplayName = (name: string): string => (name.split('.')[0]).replace(/[_|-]/g, ' ')
+
+const TIL_PREFIX = '/til'
 
 export const useTilRootDirectory = (): Directory => {
   const { allMdx } = useStaticQuery(graphql`
     {
       allMdx(sort: {fields: fileAbsolutePath}) {
         nodes {
-          fileAbsolutePath
+          slug
         }
       }
     }
   `)
-  const directories = _.compact(
-    _.map(allMdx.nodes, (node) => node.fileAbsolutePath.split(`${TIL_DIR_NAME}/`)[1])
-  )
-
   const result: Directory = {
-    displayName: TIL_DIR_NAME,
-    name: '/',
+    displayName: 'root',
+    path: TIL_PREFIX,
     children: []
   }
+  const slugs = _.map(allMdx.nodes, (node) => node.slug)
 
   // TODO(poqw): Refactor this codes.
-  _.forEach(directories, (directory) => {
+  _.forEach(slugs, (slug) => {
     let currentDir = result
-    const dirs = directory.split('/')
+    const dirs = slug.split('/')
     _.forEach(dirs, (dir, index: number) => {
-      const name = dirs[dirs.length - 1].split('.')[0]
+      if (_.isNil(currentDir.children)) {
+        throw new Error('Children of currentDir cannot be nil.')
+      }
+
       if (index < dirs.length - 1) {
         const foundIndex = _.findIndex(currentDir.children, ['displayName', dir])
         if (foundIndex === -1) {
           const nextDir: Directory = {
             displayName: dir,
-            name,
+            path: `${TIL_PREFIX}/${dirs.slice(0, index + 1).join('/')}`,
             children: []
           }
           currentDir.children.push(nextDir)
@@ -48,7 +49,7 @@ export const useTilRootDirectory = (): Directory => {
       } else {
         currentDir.children.push({
           displayName: toDisplayName(dir),
-          name
+          path: `${TIL_PREFIX}/${slug}`
         })
       }
     })

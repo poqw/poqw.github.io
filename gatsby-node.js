@@ -1,18 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+require('ts-node').register()
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { createFilePath } = require('gatsby-source-filesystem')
+const { createPages } = require('./src/lib/createPages')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { onCreateNode } = require('./src/lib/onCreateNode')
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions
-
-  if (node.internal.type === 'Mdx') {
-    const slug = createFilePath({ node, getNode, basePath: 'pages' })
-    createNodeField({
-      node,
-      name: 'slug',
-      value: slug
-    })
-  }
-}
-
+exports.createPages = createPages
+exports.onCreateNode = onCreateNode

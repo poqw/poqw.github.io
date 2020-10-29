@@ -4,6 +4,7 @@ import { RouteComponentProps } from '@reach/router'
 import React from 'react'
 import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
+import SEO from '../../components/atoms/SEO'
 import AboutSection from '../../components/organisms/AboutSection'
 import FooterSection from '../../components/organisms/FooterSection'
 import LandingSection from '../../components/organisms/LandingSection'
@@ -14,6 +15,7 @@ import TimelineSection from '../../components/organisms/TimelineSection'
 const MainPage: React.FC<RouteComponentProps> = () => {
   return (
     <Parallax pages={4} scrolling>
+      <SEO />
       <ParallaxLayer offset={0} speed={-0.1} factor={0.2}>
         <Container maxWidth="lg">
           <MainHeader />
@@ -69,7 +71,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
       </ParallaxLayer>
 
       <ParallaxLayer offset={3.95} speed={0.2}>
-        <Box bgcolor="rgba(40, 40, 40, 0.3)" height="100%" width="100%" >
+        <Box bgcolor="rgba(40, 40, 40, 0.3)" height="100%" width="100%">
           <Container maxWidth="lg">
             <FooterSection />
           </Container>

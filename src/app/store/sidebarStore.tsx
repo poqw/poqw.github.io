@@ -33,7 +33,14 @@ const authReducer = (state: State, action: SidebarAction): State => {
     case 'DRAWER_TOGGLED':
       return { ...state, isDrawerOpened: !state.isDrawerOpened }
     case 'ITEM_CLICKED':
-      return { ...state, [action.payload.clickedItemName]: !state[action.payload.clickedItemName] }
+      if (!action.payload) {
+        throw Error('payload cannot be empty')
+      }
+
+      return {
+        ...state,
+        [action.payload.clickedItemName]: !state[action.payload.clickedItemName]
+      }
     default:
       return state
   }

@@ -70,7 +70,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items }) => {
   return (
     <Box className={classes.root}>
       <Typography variant="body2">목차</Typography>
-      <Box mt={1} className={classes.tocContainer}>
+      <Box mt={1}>
         {renderNestedToc(tableOfContent.items)}
       </Box>
     </Box>
