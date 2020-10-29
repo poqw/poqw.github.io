@@ -1,5 +1,7 @@
 # Kubernetes (a.k.a k8s)
 
+![](https://subicura.com/assets/article_images/2019-05-19-kubernetes-basic-1/kubernetes-logo.png)
+
 쿠버네티스에 대해 알아보자.
 
 ## 개념
