@@ -52,7 +52,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={2} speed={0.5} factor={1}>
+      <ParallaxLayer offset={2} speed={0.35} factor={1}>
         <Box bgcolor="white" height="100%" width="100%">
           <Container maxWidth="xl">
             <TimelineSection />
@@ -60,7 +60,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={3} speed={0.3} factor={1.2}>
+      <ParallaxLayer offset={3} speed={0.2} factor={1.2}>
         <Box bgcolor="rgba(20, 150, 120, 0.7)" height="100%" width="100%" style={{
           clipPath: 'polygon(0 5%, 100% 0%, 100% 95%, 0 100%)'
         }}>
@@ -70,7 +70,7 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={3.95} speed={0.2}>
+      <ParallaxLayer offset={3.95} speed={0.1}>
         <Box bgcolor="rgba(40, 40, 40, 0.3)" height="100%" width="100%">
           <Container maxWidth="lg">
             <FooterSection />

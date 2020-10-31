@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
 }))
 
 const calc = (x, y): number[] => {
-  return [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
+  return [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.05]
 }
 
 const trans = (x, y, s): string => {
@@ -61,7 +61,7 @@ const TilCard: React.FC<Props> = ({ title, description, mediaImg }) => {
   const classes = useStyles()
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
-    config: { mass: 1, tension: 350, friction: 40 }
+    config: { mass: 1, tension: 400, friction: 4 }
   }))
 
   return (
