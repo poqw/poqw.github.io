@@ -116,10 +116,11 @@ services:
 docker-compoes up
 ```
 
-`--build` 옵션을 주어 `run` 하기 전에 빌드를 할 수도 있다.
+`--build` 옵션을 주어 `run` 하기 전에 빌드를 하게 하거나, `-d` 옵션을 주어 백드라운드로 돌도록 할 수도 있다.
 
 ```bash
 docker-compoes up --build
+docker-compoes up -d
 ```
 
 docker ps 로 확인해보면 두 컨테이너가 동시에 떠 있는 걸 볼 수 있다.
