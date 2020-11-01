@@ -114,8 +114,8 @@ docker run -it node:alpine sh
 FROM node:alpine
 
 WORKDIR /usr/app
-COPY ./ ./
 
+COPY ./ ./
 RUN yarn install
 
 CMD ["yarn", "start"]
@@ -131,3 +131,27 @@ docker run -p 3000:3000 docker_test
 ```
 
 굳. `localhost:3000` 에서 hello world 가 잘 보인다.
+
+### Dockerfile 최적화
+
+앞서 매 스텝마다 `docker` 는 빌드 내역을 캐시한다고 했었다. 캐싱이 되면 빌드 속도가 매우 빨라지기 때문에 규모가 큰 프로젝트에선
+이런 최적화의 중요성이 더 두드러진다. 위에서 만들었던 `Dockerfile` 을 최적화 해보자.
+
+위 스크립트에서 `RUN yarn install` 은 가장 오래 걸리는 부분이다. `RUN yarn install` 을 포함하여, 그 보다 사전에 실행된
+스텝에서 변경사항이 발생하는 경우 캐시는 더 이상 쓰지 못하고 무용지물이 되고 만다.
+
+```dockerfile
+FROM node:alpine
+
+WORKDIR /usr/app
+
+COPY ./package.json ./
+RUN yarn install
+COPY ./ ./
+
+CMD ["yarn", "start"]
+```
+
+그러나 위와 같이 변경하였을 경우, `package.json` 을 건드리지 않고 소스코드만 수정한다면, `RUN yarn install` 까지의 과정을
+캐시로 세이브되어 install 과정이 스킵된다. 실제 개발할 땐 package.json 보다 소스코드를 훨씬 더 자주 수정하게 되니 이런
+디테일한 부분에 좀 더 신경을 써주면 좋을 것 같다. 
