@@ -26,7 +26,7 @@ Portfolio까지 하나로 합친 PORTILOG를 탄생시켰습니다.
 이를 위해 [Gatsby](https://www.gatsbyjs.com/), [React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/)
 등을 이용하여 작성되었습니다. 
 
-https://poqw.github.io 에서 확인해 보실 수 있습니다.
+https://happy-nut.github.io 에서 확인해 보실 수 있습니다.
 
 ## TIL
 
@@ -70,7 +70,7 @@ yarn deploy
 
 ## Issue reporting
 
-https://github.com/poqw/poqw.github.io/issues 에 제보 부탁드립니다.
+https://github.com/happy-nut/happy-nut.github.io/issues 에 제보 부탁드립니다.
 
 ## Contibution
 
