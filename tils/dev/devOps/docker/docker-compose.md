@@ -87,22 +87,25 @@ docker build -t docker_test . && docker run docker_test
 결국 여러 호스트를 띄워서 위 이미지를 띄우는 방법이 있다. redis 서버를 접속가능한 public 한 곳에 하나 띄우고,
 `redis.createClient` 부분의 `host`에 해당 주소를 넣는 것이다. 하지만 같은 호스트에서 띄우고 싶다면? `docker-compose`를 사용하자.
 
-참고로 여러 호스트를 띄워서 컨테이너들을 관리하고 싶다면 [`kubernetes`](../k8s) 를 사용하자.
+참고로 여러 호스트를 띄워서 컨테이너들을 관리하고 싶다면 [kubernetes](../kubernetes/k8s) 를 사용하자.
 
 ### docker-compose.yaml 파일 작성
 
 `docker` 가 `Dockerfile` 를 사용하듯, `docker-compose` 를 쓰려면 `docker-compose.yaml` 을 생성해야 한다.
 
 ```yaml
-version: '3.7' # docker compose 의 버전이다.
+version: '3.8' # Docker compose 의 버전이다.
 
 services:
-  redis-server:
-    image: 'redis'
-  node-app:
+  sample-node-app:
     build: .
+    image: happynut/sample-node-app:0.1.0 # 이렇게 태깅을 할 수도 있다. 없어도 상관 없음.
     ports:
       - "8081:3000"
+    depends_on:
+      - redis-server
+  redis-server:
+    image: 'redis'
 ```
 
 `docker-compose`는 결국 여러 컨테이너 이미지를 관리하기 위해 쓰는 것인데, 이 여러 이미지들을 `docker-compose.yaml` 파일
@@ -123,7 +126,13 @@ docker-compoes up --build
 docker-compoes up -d
 ```
 
-docker ps 로 확인해보면 두 컨테이너가 동시에 떠 있는 걸 볼 수 있다.
+참고로, 빌드만 할 수도 있다.
+
+```bash
+docker-compoes build
+```
+
+어쨌든, docker ps 로 확인해보면 두 컨테이너가 동시에 떠 있는 걸 볼 수 있다.
 
 ```
 ❯ docker ps
