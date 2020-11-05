@@ -261,15 +261,91 @@ replicaset.apps/sample-node-app   3         3         3       13m
 만약 새로운 버전을 배포해야 한다면, Deployment는 자신이 가진 템플릿으로 새로운 버전의 ReplicaSet을 만들어내고,
 순차적으로 이전의 Pod들을 죽이고 새로운 Pod들을 띄우기 때문에 서비스 다운 타임을 막을 수 있다.
 
+이를 롤링 업데이트라 한다.
+
 물론 이 외에도 여러가지 배포 방식을 지원한다.
+
 - 한 번에 모든 Pod들을 죽이고 새로운 Pod를 생성하는 방식
 - Pod를 시험적으로 생성해 본 후 문제가 없다면 새로운 Pod로 이전을 시작하는 방식
+
+#### Config Deployment
+
+`Deployment` 는 `ReplicaSet`과 구조가 거의 동일하다. 실제로 아래에서 바뀐 것은 `kind` 밖에 없다. 
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-node-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-node-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: sample-node-app
+    spec:
+      containers:
+      - name: sample-node-app
+        image: happynut/sample-node-app:0.0.1
+```
+
+먼저 `k delete rs sample-node-app` 명령어로 원래 만들어 두었던 ReplicaSet 을 없애자.
+그 다음 `k apply -f .` 로 현재 상태를 적용한뒤 `k get all` 로 상태를 확인해보면 다음과 같다.
+
+#### Run Deployment
+
+```
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/sample-node-app-8555cb8b6b-7cdgg   1/1     Running   0          3m5s
+pod/sample-node-app-8555cb8b6b-t9zxm   1/1     Running   0          3m5s
+pod/sample-node-app-8555cb8b6b-z6n4j   1/1     Running   0          3m5s
+
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes            ClusterIP   10.96.0.1       <none>        443/TCP          20h
+service/sample-node-service   NodePort    10.100.78.169   <none>        3000:30080/TCP   17h
+
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/sample-node-app   3/3     3            3           3m5s
+
+NAME                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/sample-node-app-8555cb8b6b   3         3         3       3m5s
+```
+
+선언해 준 적도 없는 `Replicaset`이 생겨버렸다. 이로써 `Deployment` 는 `ReplicaSet` 을 템프릿으로 가지고 있다는 것을 알 수 있다.
+
+#### Deployment 는 왜 쓰는가
+
+당연히 무중단 업데이트를 위해서 쓰인다. 아래처럼 `containers` 의 이미지 버전을 올려보자. 이미지는 미리 올려두었다.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-node-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-node-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: sample-node-app
+    spec:
+      containers:
+      - name: sample-node-app
+        image: happynut/sample-node-app:0.0.2
+``` 
+
+`k apply -f .` 로 적용해준 뒤, `k rollout status deploy sample-node-app` 를 통해 배포할 수 있다.
 
 ### Ingress
 
 위에서 다운 타임을 막으려면 반드시 복수의 Pod가 필요했음을 눈치챘을 것이다. 이 Pod 들이 전부 서비스 중이라면,
 Service는 어떤 Pod로 요청을 가져다 주어야 하는 지 어떻게 알 수 있을까? 이 역할을 해주는 것이 Ingress(즉, 로드 벨런서)다.
-
 
 ## kubectl
 
