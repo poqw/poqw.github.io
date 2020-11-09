@@ -292,10 +292,29 @@ spec:
         image: happynut/sample-node-app:0.0.1
 ```
 
+참고로, 컨테이너에 환경변수를 심는 것도 Deployment 에서는 매우 간단하다. 다음과 같이 `env` 값을 주면 된다.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+# ...
+spec:
+  # ...
+  template:
+    # ...
+    spec:
+      containers:
+      - name: sample-node-app
+        image: happynut/sample-node-app:0.0.1
+        env:
+        - name: SOME_ENV_KEY
+          value: SOME_ENV_VALUE
+```
+ 
+#### Run Deployment
+
 먼저 `k delete rs sample-node-app` 명령어로 원래 만들어 두었던 ReplicaSet 을 없애자.
 그 다음 `k apply -f .` 로 현재 상태를 적용한뒤 `k get all` 로 상태를 확인해보면 다음과 같다.
-
-#### Run Deployment
 
 ```
 NAME                                   READY   STATUS    RESTARTS   AGE
@@ -337,10 +356,11 @@ spec:
     spec:
       containers:
       - name: sample-node-app
+        # 버전을 올렸다!
         image: happynut/sample-node-app:0.0.2
 ``` 
 
-`k apply -f .` 로 적용해준 뒤, `k rollout status deploy sample-node-app` 를 통해 배포할 수 있다.
+이후, `k apply -f .` 로 적용해준 뒤, `k rollout status deploy sample-node-app` 를 통해 배포할 수 있다.
 
 ### Ingress
 
@@ -351,56 +371,3 @@ Service는 어떤 Pod로 요청을 가져다 주어야 하는 지 어떻게 알 
 
 쿠버네티스 CLI다. 명령어가 무진장 많다. [여기서](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 명령어들을 검색해 볼 수 있다.
-
-### Tips
-
-`kubectl`라는 명령어가 꽤 길다보니, 불편해 하는 사람들이 생겼다. 그래서
-[여기서는](https://github.com/ahmetb/kubectl-aliases) 아예 그런 사람들을 위한 shell aliases 를 수백가지나 제공한다.
-
-위 README의 Installation 참고해서 아래 스크립트를 만들었으니 그냥 실행해주자.
-
-```bash
-cd ~ && \
-  wget https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases && \
-  echo '[ -f ~/.kubectl_aliases ] && . ~/.kubectl_aliases' >> ~/.zshrc && \
-  echo 'function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }' >> ~/.zshrc && \
-  . ~/.zshrc
-```
-
-### 자주 쓰이는 명령어들
-
-여긴 차차 써내려 가야겠다.
-
-#### Context
-
-```bash
-k config get-contexts // 컨택스트 리스트 확인
-k config current-context // 현재 컨텍스트 확인
-k config use-context CONTEXT_NAME // CONTEXT_NAME 컨텍스트 사용
-```
-
-#### Secret
-secret 목록 확인
-
-```bash
-k get secret  
-```
-
-`credentials-2265h296mg` 이건 secret 이름, output형식은 json 등도 가능
-```bash
-k get secret credentials-2265h296mg -o yaml
-```
-
-#### Pod
-```bash
-k get pods // Pod 확인
-```
-
-#### Kustomize
-
-kustomization.yaml이 있는 폴더에서 아래 명령어를 실행시키면 config map을 볼 수 있다.
-
-```bash
-k kustomize .
-```
-
