@@ -201,7 +201,7 @@ const AboutSection: React.FC = () => {
             <Box className={classes.iconContainer}>
               <IconButton
                 className={classes.iconButton}
-                href="https://github.com/poqw"
+                href="https://github.com/happy-nut"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -233,7 +233,7 @@ const AboutSection: React.FC = () => {
               </IconButton>
               <IconButton
                 className={classes.iconButton}
-                href="mailto:poqw.dev@gmail.com"
+                href="mailto:happynut.dev@gmail.com"
                 target="_blank"
                 rel="noreferrer noopener"
               >

@@ -5,7 +5,7 @@ module.exports = {
     title: 'PORTILOG',
     description: 'Portfolio + TIL(Today I learned) + Blog for me.',
     author: 'Hyungsun Song <hssongng@gmail.com>',
-    siteUrl: 'https://poqw.github.io'
+    siteUrl: 'https://happy-nut.github.io/'
   },
   plugins: [
     // Local plugins.
@@ -17,7 +17,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        host: 'https://poqw.github.io',
+        host: 'https://happy-nut.github.io/',
         sitemap: 'https://post.github.io/sitemap.xml',
         policy: [{ userAgent: '*', allow: '/' }]
       }
@@ -57,7 +57,7 @@ module.exports = {
             resolve: 'gatsby-remark-prismjs',
             options: {
               prompt: {
-                user: 'poqw',
+                user: 'happy-nut',
                 host: 'localhost',
                 global: true
               }
