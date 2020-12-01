@@ -24,3 +24,31 @@ jest --clearCache
 ```bash
 node_modules/jest/bin/jest.js --clearCache
 ```
+
+### 삽질 기록
+
+아래 함수 `givenK8sClientListDeploymentsRejected` 에서 `mockRejectedValueOnce` 가 `Error`를 resolve 하는 경우
+결과적으로 mocked function이 에러를 뱉었으므로(성공적으로 실행되었다 볼 수 없으므로) `called` function에 잡히지 않는다.
+
+따라서 `Error` 외의 타입을 리턴해 주어야 테스트가 통과한다.
+
+```typescript
+function givenK8sClientListDeploymentsRejected (): void {
+  k8sClient.listDeployments.mockRejectedValueOnce('List k8s pods error!')
+}
+
+function expectK8sClientListDeploymentsCalled (request: ListDeploymentsRequest): void {
+  expect(k8sClient.listDeployments).toHaveBeenCalledWith(request)
+}
+
+it('rejects and logs error when listing deployments rejected', async () => {
+    givenK8sClientListDeploymentsRejected()
+
+    await expect(uut.get())
+      .toReject()
+    expectK8sClientListDeploymentsCalled({ namespace: NAMESPACE })
+    expect(logger.error)
+      .toHaveBeenCalled()
+  })
+```
+
