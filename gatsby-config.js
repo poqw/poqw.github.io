@@ -38,6 +38,14 @@ module.exports = {
         path: `${__dirname}/tils`
       }
     },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/
+        }
+      }
+    },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
@@ -72,10 +80,10 @@ module.exports = {
         name: 'gatsby-starter-default',
         short_name: 'starter',
         start_url: '/',
-        background_color: '#aed581',
-        theme_color: '#7da453',
+        background_color: '#2CBBA0',
+        theme_color: '#00A59F',
         display: 'minimal-ui',
-        icon: 'assets/images/gatsby-icon.png'
+        icon: 'assets/images/logo.png'
       }
     }
   ]

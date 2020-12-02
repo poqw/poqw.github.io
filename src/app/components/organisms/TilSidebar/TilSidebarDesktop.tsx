@@ -10,7 +10,7 @@ const TilSidebarDesktop: React.FC<TilSidebarContentProps> = ({ directory }) => (
     {
       _.map(directory.children, (childDirectory) => {
         return (
-          <div key={childDirectory.name}>
+          <div key={childDirectory.path}>
             <DirectoryList directory={childDirectory} />
             <Divider />
           </div>

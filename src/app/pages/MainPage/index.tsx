@@ -1,5 +1,7 @@
+import AppBar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
+import makeStyles from '@material-ui/core/styles/makeStyles'
 import { RouteComponentProps } from '@reach/router'
 import React from 'react'
 import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
@@ -12,17 +14,25 @@ import MainHeader from '../../components/organisms/MainHeader'
 import TilSection from '../../components/organisms/TilSection'
 import TimelineSection from '../../components/organisms/TimelineSection'
 
+export const useStyles = makeStyles({
+  appBar: {
+    backgroundColor: '#FAFAFA'
+  }
+})
+
 const MainPage: React.FC<RouteComponentProps> = () => {
+  const classes = useStyles()
+
   return (
     <Parallax pages={4} scrolling>
       <SEO />
-      <ParallaxLayer offset={0} speed={-0.1} factor={0.2}>
+      <AppBar position="static" elevation={0} className={classes.appBar}>
         <Container maxWidth="lg">
           <MainHeader />
         </Container>
-      </ParallaxLayer>
+      </AppBar>
 
-      <ParallaxLayer offset={0.2} speed={0.5} factor={0.8}>
+      <ParallaxLayer offset={0.1} speed={0.5} factor={0.8}>
         <Box>
           <Container maxWidth="lg">
             <LandingSection />
@@ -30,13 +40,13 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={0.15} speed={-0.2} factor={3.9}>
+      <ParallaxLayer offset={0.1} speed={-0.2} factor={3.9}>
         <Box bgcolor="rgba(20, 150, 120, 0.1)" height="100%" width="100%" style={{
           clipPath: 'polygon(0 15%, 100% 20%, 100% 75%, 0 100%)'
         }} />
       </ParallaxLayer>
 
-      <ParallaxLayer offset={0.7} speed={-0.1} factor={1.3}>
+      <ParallaxLayer offset={0.6} speed={-0.1} factor={1.4}>
         <Box bgcolor="rgba(20, 150, 120, 0.6)" height="100%" width="100%" style={{
           clipPath: 'polygon(0 25%, 100% 15%, 100% 85%, 0 95%)'
         }} />
@@ -70,13 +80,11 @@ const MainPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </ParallaxLayer>
 
-      <ParallaxLayer offset={3.95} speed={0.1}>
-        <Box bgcolor="rgba(40, 40, 40, 0.3)" height="100%" width="100%">
-          <Container maxWidth="lg">
-            <FooterSection />
-          </Container>
-        </Box>
-      </ParallaxLayer>
+      <Box bgcolor="rgba(40, 40, 40, 0.3)" height="50" width="100%" position="absolute" bottom={0}>
+        <Container maxWidth="lg">
+          <FooterSection />
+        </Container>
+      </Box>
     </Parallax>
   )
 }

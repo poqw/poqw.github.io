@@ -19,7 +19,7 @@ const FooterSection: React.FC = () => {
   return (
     <Box height="5vh" display="flex" justifyContent="center" alignItems="center" color="white">
       <Link to="https://happy-nut.github.io" className={classes.copyright}>
-        <Typography variant="caption">형선의 Portilog © 2020</Typography>
+        <Typography variant="caption">2020 © happy-nut all rights reserved.</Typography>
       </Link>
     </Box>
   )

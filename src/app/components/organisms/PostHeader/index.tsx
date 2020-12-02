@@ -7,18 +7,13 @@ import TilHeaderDesktop from './TilHeaderDesktop'
 import TilHeaderMobile from './TilHeaderMobile'
 import TilHeaderTablet from './TilHeaderTablet'
 
-interface Props {
-  logo: React.ReactNode
-}
-
-const TilHeader: React.FC<Props> = ({ logo }) => {
+const TilHeader: React.FC = () => {
   const sidebarDispatch = useSidebarDispatch()
   const onMenuButtonClick = useCallback(() => {
     sidebarDispatch({ type: 'DRAWER_TOGGLED' })
   }, [sidebarDispatch])
 
   const props: TilHeaderContentProps = {
-    logo,
     onMenuButtonClick
   }
 

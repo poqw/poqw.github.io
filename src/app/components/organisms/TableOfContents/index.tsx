@@ -55,14 +55,14 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items }) => {
       }
 
       return (
-        <>
-          <a className={classes.link} href={item.url} key={item.url}>
+        <div key={item.url}>
+          <a className={classes.link} href={item.url}>
             <Box pl={depth}>
               <Typography variant="caption" className={classes.title}>{item.title}</Typography>
             </Box>
           </a>
           {renderNestedToc(item.items, depth + 1)}
-        </>
+        </div>
       )
     })
   }
