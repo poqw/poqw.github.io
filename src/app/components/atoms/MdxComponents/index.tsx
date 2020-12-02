@@ -148,7 +148,9 @@ export const Ol: React.FC = ({
   const classes = useOLStyles()
   return (
     <ol className={classes.root}>
-      {children}
+      <Typography className={classes.root} variant="body2" color="textSecondary">
+        {children}
+      </Typography>
     </ol>
   )
 }
@@ -167,7 +169,9 @@ export const Ul: React.FC = ({
   const classes = useULStyles()
   return (
     <ul className={classes.root}>
-      {children}
+      <Typography className={classes.root} variant="body2" color="textSecondary">
+        {children}
+      </Typography>
     </ul>
   )
 }

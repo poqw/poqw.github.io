@@ -13,9 +13,13 @@ import './custom-codeblock.css'
 import './custom-blockquote.css'
 import './custom-image.css'
 import './anchor.css'
+
 import { TilProps } from '../../../hooks/useAllPosts'
 import { H1, H2, H3, H4, H5, H6, Img, Ol, P, Ul } from '../../atoms/MdxComponents'
 import SEO from '../../atoms/SEO'
+import CommentSection from '../../molecules/CommentSection'
+
+import { Divider } from '@material-ui/core'
 
 const useStyles = makeStyles({
   paper: {
@@ -50,11 +54,15 @@ const Post: React.FC<Omit<TilProps, 'toc'>> = ({ body, name }) => {
   })
 
   return (
-    <Box id="post" className={classes.paper}>
+    <Box id="post" className={classes.paper} pb={12}>
       <SEO title={name} />
       <MDXProvider components={components}>
         <MDXRenderer>{body}</MDXRenderer>
       </MDXProvider>
+      <Box mt={10} mb={4}>
+        <Divider />
+      </Box>
+      <CommentSection repo="happy-nut/happy-nut.github.io.comments" />
     </Box>
   )
 }
