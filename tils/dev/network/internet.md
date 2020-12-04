@@ -9,38 +9,38 @@
 
 컴퓨터는 물리적인 랜선으로 연결한다면 1:1로 서로간 통신이 가능하다.
 
-![1:1 연결](../../../../assets/images/internet_2.png)
+![1:1 연결](../../../assets/images/internet_2.png)
 
 그러나 여러 대의 컴퓨터를 연결하게 될 경우 필요한 랜선의 수가 기하 급수적으로 늘어난다.
 
-![n:n 연결](../../../../assets/images/internet_3.png)
+![n:n 연결](../../../assets/images/internet_3.png)
 
 이 문제를 해결하기 위해 탄생한 것이 라우터이다. 라우터는 우리가 아는 컴퓨터와 달리 딱 하나의 기능만 가진다. 철도역의 신호원 역할이 바로 그것이다.
 이로 인해 중앙 집중 형태로 중안엔 라우터가, 변두리엔 컴퓨터들이 위치하여 서로 통신할 수 있게 되는 소형 네트워크가 만들어 질 수 있게 되었다.
 
-![라우터 연결](../../../../assets/images/internet_4.png)
+![라우터 연결](../../../assets/images/internet_4.png)
 
 라우터는 또한, 라우터끼리도 연결할 수가 있었기 때문에 랜선 길이만 충분하다면 무한한 확장이 가능했다.
 
-![라우터 연결2](../../../../assets/images/internet_5.png)
+![라우터 연결2](../../../assets/images/internet_5.png)
 
 하지만 그말은 즉, 랜선 길이가 유한하기 때문에 확장에 한계를 가진다는 말과 같았다. 사람들은 거리상의 물리적 한계를 극복해 내기 위해
 이미 그 시절에 집집마다 인프라를 다 갖추고 있던 전화선을 이용해 먹기로 마음 먹었다. 컴퓨터간 주고 받는 통신 데이터를 전화 데이터로 변환하고,
 또 역방향으로도 변환이 가능하게끔 하는 모뎀(MODEM, MOdulator and DEModulator)을 개발해낸 것이다.
 
-![모뎀 연결](../../../../assets/images/internet_6.png)
+![모뎀 연결](../../../assets/images/internet_6.png)
 
 그러나 모뎀만 있다고 해서 장거리 네트워크 연결이 무작정 이루어지는 것은 아니었는데, 이는 모뎀과 모뎀을 연결시켜주는 매개체가 필요했기 때문이다.
 그 매개체가 바로 ISP(Internet Service Provider)이다. 우리나라엔 대표적으로 SK텔레콤, KT, LG 유플러스가 여기 해당된다.
 
-![ISP 연결](../../../../assets/images/internet_7.png)
+![ISP 연결](../../../assets/images/internet_7.png)
 
 이 ISP들은 마치 위에서 컴퓨터와 라우터간의 관계처럼 글로벌 ISP에 접속하거나, (비용을 아끼기 위한 목적으로) 지역 ISP에 접속하여
 거대한 인터넷 망을 구축할 수 있게 해준다. 글로벌 ISP는 전세계에 [16개 정도 있다](https://en.wikipedia.org/wiki/Tier_1_network#List_of_Tier_1_networks) 고 알려져 있다.
 
 대륙간에는 아래와 같이 해저 광학 케이블로 연결이 되어 있다.
 
-![해저 케이블](../../../../assets/images/internet_1.png)
+![해저 케이블](../../../assets/images/internet_1.png)
 
 
 ## DNS와 동작 원리
@@ -53,7 +53,7 @@
 예를 들어 IP 주소가 210.89.160.88 라고 했을 때 DNS는 이 주소를 www.naver.com으로 매핑을 시켜두고 기다리고 있다가,
 누군가 www.naver.com에 접속하고 싶어하면 컴퓨터 간 통신을 하기 전에 해당 문자열을 IP 주소인 210.89.160.88로 변환시켜준다.
 
-![DNS](../../../../assets/images/internet_8.png)
+![DNS](../../../assets/images/internet_8.png)
 
 
 여기서 기다리고 있다가 요청이 오면 매핑시켜주는 역할을 하는 장치가 Domain Name Server인데, 보통 ISP가 이 역할을 겸한다.
@@ -72,7 +72,7 @@ www.visa.go.kr 처럼 뒤에 붙는 .kr은 국가코드를 반영하는데,이�
 
 ## Hosting
 
-![Hosting](../../../../assets/images/internet_9.png)
+![Hosting](../../../assets/images/internet_9.png)
 
 앞서서 예쁜 Domain Name을 미리 사두고 팔기 까지 한다고 했는데, 내가 Domain Name을 단지 소유하고 있기만 했다고 해서 멋진 웹사이트가
 그 주소에 떡하니 보여지는 것은 당연히 아니다. 멋진 웹사이트가 눈앞에 펼쳐지기 까지 다음과 같은 것들이 필요하다.
@@ -146,7 +146,7 @@ Response에서도 마찬가지로 '어떻게'의 결과와 그 결과가 성공�
 
 #### 렌더링 엔진의 동작 과정
 
-![Hosting](../../../../assets/images/internet_10.png)
+![Hosting](../../../assets/images/internet_10.png)
 
 크게 다음과 같은 플로우를 따른다.
 

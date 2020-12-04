@@ -6,7 +6,7 @@
 처음에 '레포트.txt'를 만들었다가 내용이 바뀔 경우 '레포트_최종.txt', '레포트_최종2.txt', '레포트_진짜최종.txt' 등등을 만들게 된다.
 실제로 인터넷에 아래짤이 나돌며 많은 이들의 공감을 얻는 걸 본적이 있을 것이다.
 
-![version control](../../../../assets/images/git_1.png)
+![version control](../../../assets/images/git_1.png)
 
 마지막으로 수정한 파일이 마음에 들지 않으면 언제든지 이전 버전을 꺼낼 수 있게 백업을 하고 있었지 않은가? 알게 모르게 우리는 각 버전에 대해 관리를 하고 있던 셈이다.
 
@@ -42,7 +42,7 @@ git clone [remote repo주소]
 
 여기까지 했다면, 로컬과 원격 모두 준비가 된 것이다. 하지만 고작 세팅 정도 단계만 끝난 것이고, 본격적으로 작업을 하기 전에 잡아둬야 할 개념이 있다.
 
-![git workflow](../../../../assets/images/git_2.png)
+![git workflow](../../../assets/images/git_2.png)
 
 위 그림에서 그 개념을 잘 설명하니, 꼭 기억해 두도록 하자. git에서는 위에서 설명했던 local 환경이라는 것을 3단계로 나누었다.
 
@@ -103,7 +103,7 @@ git merge 와 git checkout 도 밑에서 자세히 설명한다.
 
 일반적으로 Github 을 이용한 협업 플로우는 아래 다이어그램을 따른다.
 
-![git pr](../../../../assets/images/git_3.png)
+![git pr](../../../assets/images/git_3.png)
 
 github 을 통해 협업을 하고자 하는 경우, 가장 먼저 갖춰져야 할 것은 원격 target repository다(그림에서 왼쪽 검은 문어).
 원격 repository 가 준비가 되었다면 팀원들은 이 repository 를 fork를 받는다(`clone` 이 아님에 주의하자).
