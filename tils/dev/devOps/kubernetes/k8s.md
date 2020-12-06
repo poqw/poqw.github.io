@@ -362,12 +362,53 @@ spec:
 
 이후, `k apply -f .` 로 적용해준 뒤, `k rollout status deploy sample-node-app` 를 통해 배포할 수 있다.
 
+#### Private registry 에서 이미지를 받아오는 경우
+
+지금까지 만들었던 파일에서 contianer image(`happynut/sample-node-app:0.0.1`)는 public 하게 등록되어 있었다.
+그러나 실제 제품에선 private 하게 등록된 이미지를 사용할 가능성이 높다.
+
+private 하게 등록한 이미지를 사용하기 위해선 당연히 획득권한을 얻어올 수 있는 인증과정이 필요하고, 그 인증 과정은 다음과 같이 이루어진다.
+
+1. K8s 에 secret을 생성한다.
+2. deployments yaml 파일에 `imagePullSecrets` 필드를 통해 해당 secret 이름을 지정한다.
+3. 매번 이미지 풀링이 필요할 떄마다 해당 필드를 참고하여 인증한뒤, 이미지를 획득한다.
+
+우선 k8s 에 secret을 생성하려면 다음 명령어를 사용한다. 참고: [링크](https://kubernetes.io/ko/docs/concepts/configuration/secret/#%EB%8F%84%EC%BB%A4-%EC%BB%A8%ED%94%BC%EA%B7%B8-%EC%8B%9C%ED%81%AC%EB%A6%BF)
+
+```bash
+kubectl create secret docker-registry <your-secret-name> \
+  --docker-server=<your-registry-server>\
+  --docker-username=<your-name>\
+  --docker-password=<your-pword>\
+  --docker-email=<your-email>
+```
+
+위 명령어를 통해 `kubernetes.io/dockerconfigjson` 타입으로 시크릿이 k8s에 저장된다.
+이제 아래 파일처럼 `imagePullSecrets` 필드를 포함하여 `Deployment` 를 구성한다.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-node-app
+  template:
+    metadata:
+      labels:
+        app: sample-node-app
+    spec:
+      containers:
+        - name: sample-node-app
+          image: "happynut/sample-node-app:0.0.2"
+      imagePullSecrets:
+        - name: container-reg-cred # 내가 위에서 설정했던 <your-secret-name>
+```
+
 ### Ingress
 
 위에서 다운 타임을 막으려면 반드시 복수의 Pod가 필요했음을 눈치챘을 것이다. 이 Pod 들이 전부 서비스 중이라면,
 Service는 어떤 Pod로 요청을 가져다 주어야 하는 지 어떻게 알 수 있을까? 이 역할을 해주는 것이 Ingress(즉, 로드 벨런서)다.
-
-## kubectl
-
-쿠버네티스 CLI다. 명령어가 무진장 많다. [여기서](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
-명령어들을 검색해 볼 수 있다.
