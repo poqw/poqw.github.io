@@ -126,8 +126,8 @@ CMD ["yarn", "start"]
 찾기 쉽게 `-t` 옵션으로 태깅하여 빌드한 뒤, 실행한다. 
 
 ```bash
-docker build -t docker_test .
-docker run -p 3000:3000 docker_test
+docker build -t happynut/docker_test .
+docker run -p 3000:3000 happynut/docker_test
 ```
 
 굳. `localhost:3000` 에서 hello world 가 잘 보인다.
@@ -155,3 +155,14 @@ CMD ["yarn", "start"]
 그러나 위와 같이 변경하였을 경우, `package.json` 을 건드리지 않고 소스코드만 수정한다면, `RUN yarn install` 까지의 과정을
 캐시로 세이브되어 install 과정이 스킵된다. 실제 개발할 땐 package.json 보다 소스코드를 훨씬 더 자주 수정하게 되니 이런
 디테일한 부분에 좀 더 신경을 써주면 좋을 것 같다. 
+
+## Docker hub 에 이미지 push 하기
+
+`docker images` 로 현재 이미지들이 보여질 것이다. 이미지 이름 형식이 `[docker ID]/[repo/project name]:[version | latest]` 여야 하는데,
+이 때 `docker ID` 부분이 나의 Docker hub 계정 username 과 다르다면 access denied 되는 것에 주의해야 한다.
+
+이미지 이름이 `happynut/docker_test:latest` 라면, 다음 명령어로 푸시가 가능하다.
+
+```bash
+docker push happynut/docker_test:latest
+```
