@@ -42,3 +42,94 @@ stream segmenter는 일정한 시간 간격마다 입력받은 파일을 분할�
 
 HLS가 확작성이 높고 도입 비용이 낮다는 장점이 있긴 하지만, 전송 구조상 위와 같이 파일들을 먼저 분할하여 준비해놓고 스트리밍을 시작하는 방식이기
 때문에 전통적인 RT* 프로토콜들에 비해 딜레이 문제가 발생할 수 있다.
+
+### 실시간 자막
+
+라이브 스트림에 실시간으로 방송이 달리는 경우가 있다. 그 원리를 파악하기 전에, 위에서 여러 개의 ts 파일 목록을 가진 인덱스 파일을 먼저 살펴보자.
+
+```
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:2
+#EXT-X-TARGETDURATION:10
+#EXTINF:10,
+fileSequence2.ts
+#EXTINF:10,
+fileSequence3.ts
+#EXTINF:10,
+fileSequence4.ts
+#EXTINF:10,
+fileSequence5.ts
+#EXTINF:10,
+fileSequence6.ts
+```
+
+이 목록에서 알 수 있는 건 현재 5개의 엔트리가 존재하고, 각 엔트리는 10초 간격이라는 것이다.
+이는 `EXT-X-TARGETDURATION` 에 정의된 것을 따르는데, 이 값은 클라이언트가 얼마만큼의 시간간격을 가지고 서버에 데이터 청크를 요청해야 하는지를 의미한다.
+만약 이 상태에서 10초가 지나게 되면 `EXT-X-MEDIA-SEQUENCE`는 `3`으로 증가할 것이고, 리스트의 맨 위가 빠지고 맨 아래에는 새로은
+엔트가 추가될 것이다.
+
+실시간 자막의 원리도 이와 별반 다르지 않다.
+
+```
+#EXTM3U
+#EXT-X-TARGETDURATION:10
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:1
+#EXTINF:10,
+subtitleSegment1.webvtt
+#EXTINF:10,
+subtitleSegment2.webvtt
+#EXTINF:10,
+subtitleSegment3.webvtt
+```
+
+위에서 설명했던 index 파일과 매우 유사하다. 여기서 10초가 지난다면 파일은 아래와 같이 업데이트 된다.
+
+```
+#EXTM3U
+#EXT-X-TARGETDURATION:10
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:2
+#EXTINF:10,
+subtitleSegment2.webvtt
+#EXTINF:10,
+subtitleSegment3.webvtt
+#EXTINF:10,
+subtitleSegment4.webvtt
+```
+
+> **NOTE**: 자막 인덱스 파일과 스트림 인덱스 파일의 `EXT-X-TARGETDURATION`가 같아야 한다.
+
+실시간 스트리밍을 자막과 함께 내려주고 싶다면, master 인덱스 파일을 만들어 자막 인덱스 파일과 스트리밍 인덱스 파일을 참조해야 한다.
+
+```
+#EXTM3U
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="English",DEFAULT=NO,FORCED=NO,URI="subtitles.m3u8",LANGUAGE="en"
+#EXT-X-STREAM-INF:BANDWIDTH=1118592,CODECS="mp4a.40.2, avc1.64001f",RESOLUTION=640x360,SUBTITLES="subs"
+prog_index.m3u8
+```
+
+위 파일에서는 `EXT-X-MEDIA`를 통해 자막 인덱스 파일을, `EXT-X-STREAM-INF` 를 통해 스트리밍 인덱스 파일을 참조했다.
+`SUBTITLES="subs"` 부분에 자막 인덱스 파일의 아이디를 넣었다는 걸 눈여겨 보자.
+
+#### 자막 이해하기
+
+잠깐 이야기를 새서 자막 이야기를 해보려 한다. 자막은 WEBVTT(Web Video Text Tracks) 텍스트 포맷을 통해 스트림에 입힐 수 있다.
+원래는 HTML5 비디오에 사용될 목적으로 개발되었다. WEBVTT 파일은 아래와 같은 형식이다.
+
+```
+WEBVTT
+X-TIMESTAMP-MAP=MPEGTS:900000,LOCAL:00:00:00.000
+00:00:01.000 --> 00:00:03.500
+Have you had the opportunity to be in Columbia
+00:00:04.000 --> 00:00:06.000
+Belgium, Denmark, France
+00:00:06.000 --> 00:00:10.200
+United States, Spain, Holland, Poland, Germany, Sweden
+00:00:10.300 --> 00:00:11.300
+in the same week.
+```
+
+위에서 알 수 있다시피, 모든 자막은 시작과 끝 시간, 그리고 표시할 텍스트을 속성으로 가진다.
+
