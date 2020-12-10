@@ -35,6 +35,7 @@
     "gatsby": "~2.24.80",
     "gatsby-image": "~2.3.1",
     "gatsby-link": "~2.4.13",
+    "gatsby-plugin-google-gtag": "~2.4.0",
     "gatsby-plugin-manifest": "~2.3.3",
     "gatsby-plugin-material-ui": "~2.1.9",
     "gatsby-plugin-mdx": "~1.2.28",
