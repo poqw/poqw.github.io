@@ -111,25 +111,25 @@ services:
 `docker-compose`는 결국 여러 컨테이너 이미지를 관리하기 위해 쓰는 것인데, 이 여러 이미지들을 `docker-compose.yaml` 파일
 안에서는 `services` 로 정의한다. 각 이미지는 `image` 로 base image를 설정해 주거나, `build` 로 직접 이미지를 생성해 주어야 한다.
 
-### docker-compose 명령어 
+### docker-compose 명령어
 
 `up` 과 `down` 이 각각 `run` 과 `stop` 에 해당된다고 보면 된다.
 
 ```bash
-docker-compoes up
+docker-compose up
 ```
 
 `--build` 옵션을 주어 `run` 하기 전에 빌드를 하게 하거나, `-d` 옵션을 주어 백드라운드로 돌도록 할 수도 있다.
 
 ```bash
-docker-compoes up --build
-docker-compoes up -d
+docker-compose up --build
+docker-compose up -d
 ```
 
 참고로, 빌드만 할 수도 있다.
 
 ```bash
-docker-compoes build
+docker-compose build
 ```
 
 어쨌든, docker ps 로 확인해보면 두 컨테이너가 동시에 떠 있는 걸 볼 수 있다.
@@ -146,7 +146,7 @@ localhost:8081로 접속해보면 실행이 잘 되고 있는 것도 확인해 �
 멈추려면 아래 명령어를 사용하자.
 
 ```bash
-docker-compoes down
+docker-compose down
 ```
 
 ## Container maintenance
