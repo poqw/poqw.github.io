@@ -34,6 +34,12 @@ find ../../ -name '파일 이름' -type f -exec grep -i "문자열" {} \; -print
 - `{} \` 가 파일 내용까지 살펴보는 역할을 한다.
 - `-print` 는 매칭되는 내용을 같이 출력한다.
 
+특정 디렉토리 안에서 recursive 하게 삭제하고 싶을 때:
+
+```bash
+find . -type f -name '*.js' -delete
+```
+
 ## netstat
 
 열려 있는 포트 확인하려고 자주 썼던 것 같다.
