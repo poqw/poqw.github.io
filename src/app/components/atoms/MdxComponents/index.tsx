@@ -23,7 +23,7 @@ export const H1: React.FC = ({
 const useH2Styles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(1.5),
-    marginTop: theme.spacing(8)
+    marginTop: theme.spacing(6)
   }
 }))
 
@@ -40,8 +40,8 @@ export const H2: React.FC = ({
 
 const useH3Styles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(1.5),
-    marginTop: theme.spacing(4)
+    marginBottom: theme.spacing(0.5),
+    marginTop: theme.spacing(3)
   }
 }))
 
@@ -58,7 +58,7 @@ export const H3: React.FC = ({
 
 const useH4Styles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(0.5),
     marginTop: theme.spacing(1.5)
   }
 }))
@@ -76,7 +76,7 @@ export const H4: React.FC = ({
 
 const useH5Styles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(0.5),
     marginTop: theme.spacing(1.5)
   }
 }))
@@ -133,7 +133,8 @@ const useOLStyles = makeStyles((theme) => ({
     listStyle: 'none',
     counterReset: 'cupcake',
     '& li': {
-      paddingBottom: theme.spacing(2),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
       counterIncrement: 'cupcake'
     },
     '& li:before': {
@@ -148,7 +149,7 @@ export const Ol: React.FC = ({
   const classes = useOLStyles()
   return (
     <ol className={classes.root}>
-      <Typography className={classes.root} variant="body2" color="textSecondary">
+      <Typography variant="body2" color="textSecondary">
         {children}
       </Typography>
     </ol>
@@ -157,8 +158,9 @@ export const Ol: React.FC = ({
 
 const useULStyles = makeStyles((theme) => ({
   root: {
+    paddingTop: theme.spacing(1),
     '& li': {
-      paddingBottom: theme.spacing(2)
+      paddingBottom: theme.spacing(1)
     }
   }
 }))
@@ -169,7 +171,7 @@ export const Ul: React.FC = ({
   const classes = useULStyles()
   return (
     <ul className={classes.root}>
-      <Typography className={classes.root} variant="body2" color="textSecondary">
+      <Typography variant="body2" color="textSecondary">
         {children}
       </Typography>
     </ul>
