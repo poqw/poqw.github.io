@@ -193,6 +193,7 @@ process.stdin.pipe(upperCaseTr).pipe(process.stdout)
 ## Stream object 모드
 
 일반적으로 스트림은 data chunk 로 버퍼와 문자열 값을 기대한다. 그러나 `objectMode` 플래그를 사용하면 자바스크립트 객체를 허용할 수 있다.
+즉, 데이터 인코딩 문제로부터 벗어나 로직에 집중할 수 있다.
 
 ```javascript
 const { Transform } = require("stream")
@@ -237,3 +238,129 @@ process.stdin
 ```
 
 위 코드는 여러 파이프를 지나, `"a,b,c,d"`가 `{ "a":"b", "c": "d"}`로 바뀌는 스트림을 보여준다.
+
+
+## Streaming 에서 에러 처리
+
+```javascript
+rootStream
+  .pipe(streamA)
+  .pipe(streamB)
+  .pipe(streamC)
+```
+
+코드가 위와 같다고 할 때, `streamC` 에서 에러가 난다면 스트림이 배출될 곳이 터져버린 것이므로 당연히 에러는 거슬러 올라가
+`rootStream` 한테까지 전파가 될 거라고 생각하기 쉽다.
+
+```javascript
+rootStream
+  .pipe(streamA)
+  .pipe(streamB)
+  .pipe(streamC)
+
+rootStream.on('error', () => {
+  console.log('rootStream error occurred!')
+})
+
+streamA.on('error', () => {
+  console.log('steamA error occurred!')
+})
+
+streamB.on('error', () => {
+  console.log('streamB error occurred!')
+})
+
+streamC.on('error', () => {
+  console.log('streamC error occurred!')
+})
+```
+
+`.pipe` 는 에러를 위로 전파하도록 설계되지 않았다. 즉 `streamC`에서 `'error'` 이벤트가 발생한다면
+오직 `'streamC error occurred!'` 라는 결과만 얻는다.
+
+```javascript
+streamC.on('error', (error) => {
+  console.log('streamC error occurred!')
+  streamC.destroy(error)
+})
+
+// Result:
+// 'streamC error occurred!'
+// 'streamC error occurred!'
+```
+
+`.destroy(error)` 역시 상위 스트림으로 에러를 전파하지 않는다. 다만 `error` 를 함께 전파했으므로 핸들러를 한 번 더 호출할 뿐이다.
+흥미로운 점은 핸들러가 다시 호출되어 `error`를 다시 싣고서 `destory`가 호출되었는데로 무한 루프가 생기지 않는다는 점이다.
+
+만약 스트림에서 에러가 발생하는 경우 모든 스트림을 닫아야 한다면, 다음과 같이 `handleError`를 만드는 편이 좋다.
+
+```javascript
+const handleError = (error) => {
+  console.log(error)
+  rootStream.destroy()
+  streamA.destroy()
+  streamB.destroy()
+  streamC.destroy()
+}
+
+rootStream.on('error', handleError)
+streamA.on('error', handleError)
+streamB.on('error', handleError)
+streamC.on('error', handleError)
+```
+
+반면 `event` 가 발생하는 경우가 아니라 아예 런타임에 스트림을 처리하면서 에러를 `throw` 할 수도 있다. 
+
+```javascript
+const streamC = new Transform({
+  transform(chunk, encoding, callback) {
+    callback(null, chunk)
+    throw new Error('Runtime Error!')
+  },
+})
+```
+
+결과는 처참하다.
+
+```
+...
+    throw new Error('Runtime Error!')
+    ^
+
+Error: Runtime Error!
+    at Transform.transform [as _transform] (/Users/hyungsun/test/streamTest.js:22:11)
+    at Transform._read (_stream_transform.js:191:10)
+...
+```
+
+위 결과에서 알 수 있듯이, 아예 프로그램이 뻗어버린다.
+즉 `transform` 안에서 error가 발생할 것 같으면, try-catch 로 감싸 `stream.emit('error', error)` 를 이용해 처리하는 것이 바랍직하다.
+
+## (node v10 이상) Streaming 에서 에러 처리
+
+node v10 이상에서는 `pipeline` 과 `finished`라는 유틸이 소개되었다.
+
+```javascript
+const { pipeline, finished } = require("stream")
+
+pipeline(
+  rootStream,
+  streamA,
+  streamB,
+  streamC,
+  (err) => {
+    console.log('error: ', err)
+  }
+)
+
+finished(rootStream, (err) => {
+  console.log('error:', err)
+})
+```
+
+위와 같이 `pipeline`을 통해 하위 스트림에서 발생하는 에러를 한꺼번에 핸들링할 수 있을 뿐만이 아니라,
+`finished` 로 지정한 스트림이 끝나기 전에 에러가 발생하는 경우 에러 핸들러를 호출할 수 있다.
+
+이 때 `finished` 는 반드시 `pipeline`과 같이 쓰여야 하는 것에 주의하자. `a.pipe(b).pipe(c)...` 에서는 동작하지 않는다.
+
+혹은, 좀 더 정교한 핸들링이나 파이핑을 원한다면 RxJs 사용을 고려해볼 수도 있겠다.
