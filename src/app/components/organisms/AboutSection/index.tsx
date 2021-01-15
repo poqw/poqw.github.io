@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -14,11 +14,6 @@ import React from 'react'
 import { useSpring, animated } from 'react-spring'
 
 export const useStyles = makeStyles((theme) => ({
-  contentContainer: {
-    [theme.breakpoints.only('xs')]: {
-      margin: `0 ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`
-    }
-  },
   title: {
     fontSize: '3rem',
     whiteSpace: 'pre-line',
@@ -28,7 +23,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '2.5rem'
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '2rem'
+      fontSize: '1.5rem'
     }
   },
   subtitle: {
@@ -42,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1)
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '1rem',
+      fontSize: '0.9rem',
       marginTop: theme.spacing(1)
     }
   },
@@ -57,7 +52,7 @@ export const useStyles = makeStyles((theme) => ({
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     [theme.breakpoints.only('xs')]: {
-      fontSize: '1.1rem',
+      fontSize: '0.9rem',
       marginTop: theme.spacing(0)
     }
   },
@@ -67,7 +62,7 @@ export const useStyles = makeStyles((theme) => ({
     whiteSpace: 'pre-line',
     wordBreak: 'keep-all',
     [theme.breakpoints.only('xs')]: {
-      marginTop: theme.spacing(0)
+      fontSize: '0.8rem'
     }
   },
   iconContainer: {
@@ -94,7 +89,7 @@ export const useStyles = makeStyles((theme) => ({
       color: 'white'
     },
     [theme.breakpoints.only('xs')]: {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0.5),
       marginTop: theme.spacing(0),
       width: 48,
       height: 48
@@ -108,14 +103,22 @@ export const useStyles = makeStyles((theme) => ({
     willChange: 'transform',
     boxShadow: '0px 10px 30px -5px rgba(0, 0, 0, 0.3)',
     [theme.breakpoints.only('sm')]: {
-      maxWidth: 550,
-      maxHeight: 550,
-      margin: theme.spacing(5)
+      marginLeft: 0,
+      maxWidth: '35vw',
+      maxHeight: '35vw',
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
+      border: '8px solid white',
+      boxShadow: '0px 6px 20px -3px rgba(0, 0, 0, 0.3)'
     },
     [theme.breakpoints.only('xs')]: {
-      maxWidth: 200,
-      maxHeight: 200,
-      margin: theme.spacing(3)
+      marginTop: -theme.spacing(4),
+      margin: 'auto',
+      maxWidth: '35vw',
+      maxHeight: '35vw',
+      marginBottom: theme.spacing(2),
+      border: '4px solid white',
+      boxShadow: '0px 3px 10px -2px rgba(0, 0, 0, 0.3)'
     }
   }
 }))
@@ -148,6 +151,9 @@ const AboutSection: React.FC = () => {
     }
   `)
 
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.up('sm'))
+
   return (
     <Box display="flex" height="90vh" alignItems="center" color="white">
       <Grid container alignItems="center">
@@ -167,79 +173,79 @@ const AboutSection: React.FC = () => {
         </Grid>
         <Grid item md={1}> </Grid>
         <Grid item xs={12} md={5}>
-          <Box className={classes.contentContainer}>
-            <Typography variant="h1" className={classes.title}>ABOUT ME</Typography>
-            <Typography variant="h1" className={classes.subtitle}>
-              소프트웨어 엔지니어로서 저는,
-            </Typography>
-            <Box className={classes.descriptionContainer}>
-              <Box pt={2}>
-                <Typography variant="h4" className={classes.description}>
-                TDD로 개발하는 것을 선호합니다.
-                </Typography>
-                <Typography variant="body1" className={classes.subDescription}>
-                - 그것이 깔끔한 코드를 만드는 가장 좋은 방법이라 믿기 때문입니다.
-                </Typography>
-              </Box>
-              <Box pt={2}>
-                <Typography variant="h4" className={classes.description}>
-                Agile 개발 방법론의 철학을 따릅니다.
-                </Typography>
-                <Typography variant="body1" className={classes.subDescription}>
-                - 정적인 기획보다 동적인 피드백이 프로젝트를 더 옳은 방향으로 이끈다고 생각하기 때문입니다.
-                </Typography>
-              </Box>
-              <Box pt={2}>
-                <Typography variant="h4" className={classes.description}>
-                배움에 열정이 있는 팀을 갈망합니다.
-                </Typography>
-                <Typography variant="body1" className={classes.subDescription}>
-                - 함께 성장하는 것이야말로 가장 큰 시너지라고 생각하기 때문입니다.
-                </Typography>
-              </Box>
+          <Typography variant="h1" className={classes.title}>🧐 So, Who am I?</Typography>
+          <Typography variant="h1" className={classes.subtitle}>
+              저는 ____ 하는 개발자입니다.
+          </Typography>
+          <Box className={classes.descriptionContainer}>
+            <Box pt={1.5}>
+              <Typography variant="h4" className={classes.description}>
+                배움을 좋아
+              </Typography>
+              <Typography variant="body1" className={classes.subDescription}>
+                변태적으로 배울 점들을 수집하고 빠르게 흡수하려고 머리를 굴려요.
+              </Typography>
             </Box>
-            <Box className={classes.iconContainer}>
-              <IconButton
-                className={classes.iconButton}
-                href="https://github.com/happy-nut"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <GitHubIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                className={classes.iconButton}
-                href="https://www.linkedin.com/in/poqw"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <LinkedInIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                className={classes.iconButton}
-                href="https://www.instagram.com/hssongng/"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <InstagramIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                className={classes.iconButton}
-                href="https://www.facebook.com/hssongng"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <FacebookIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                className={classes.iconButton}
-                href="mailto:happynut.dev@gmail.com"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <MailIcon fontSize="large" />
-              </IconButton>
+            <Box pt={1.5}>
+              <Typography variant="h4" className={classes.description}>
+                사람들과 어울리기를 좋아
+              </Typography>
+              <Typography variant="body1" className={classes.subDescription}>
+                사람들과 어울리면 즐겁고, 즐거우면 일도 잘 되더라구요.
+              </Typography>
             </Box>
+            {matches &&
+              <Box pt={1.5}>
+                <Typography variant="h4" className={classes.description}>
+                  요리를 좋아
+                </Typography>
+                <Typography variant="body1" className={classes.subDescription}>
+                  맛있게 먹어주면 그만큼 스트레스가 풀리는 게 없거든요.
+                </Typography>
+              </Box>
+            }
+          </Box>
+          <Box className={classes.iconContainer}>
+            <IconButton
+              className={classes.iconButton}
+              href="https://github.com/happy-nut"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <GitHubIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              className={classes.iconButton}
+              href="https://www.linkedin.com/in/poqw"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <LinkedInIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              className={classes.iconButton}
+              href="https://www.instagram.com/hssongng/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <InstagramIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              className={classes.iconButton}
+              href="https://www.facebook.com/hssongng"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <FacebookIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              className={classes.iconButton}
+              href="mailto:happynut.dev@gmail.com"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <MailIcon fontSize="large" />
+            </IconButton>
           </Box>
         </Grid>
       </Grid>

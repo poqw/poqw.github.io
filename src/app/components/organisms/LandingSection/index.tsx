@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '3rem'
     },
     [theme.breakpoints.only('xs')]: {
-      fontSize: '2rem'
+      fontSize: '1.8rem'
     }
   },
   description: {
@@ -37,11 +37,11 @@ const LandingSection: React.FC = () => {
   const classes = useStyles()
   const items = [
     {
-      value: '반갑습니다.\n소프트웨어 장인을 꿈꾸는\n@happy-nut입니다.',
+      value: '반갑습니다!\n개발🧑‍💻과 요리👨‍🍳를 좋아하는\nhappy-nut🥜 입니다.',
       className: classes.title
     },
     {
-      value: '스크롤을 아래로 내려주세요.',
+      value: '저는 어떤 사람일까요? 👇',
       className: classes.description
     }
   ]
