@@ -80,7 +80,7 @@ const connection = await createConnection({
 })
 ```
 
-이 때, 똑같은 연결을 2번 하려고 하면 앱이 crash가 난다. 여러가지 multiple한 상황에 신경써야 한다면 [여기를](https://github.com/typeorm/typeorm/blob/master/docs/multiple-connections.md) 참고하자.
+이 때, 똑같은 연결을 2번 하려고 하면 앱이 crash가 난다. 여러가지 multiple한 상황에 신경써야 한다면 [여기를](https://github.com/typeorm/typeorm/blob/master/docs/multiple-connections) 참고하자.
 
 여기서 얻어진 `connection`은 `getConnection`을 이용하여 언제 어디서든지 받아올 수 있다.
 ```typescript

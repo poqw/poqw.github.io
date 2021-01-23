@@ -10,7 +10,7 @@ Yarn은 Javascript Package Manager 이고, Facebook에서 만들었다.
 ## package.json
 
 yarn은 package.json 에 정의된 버전의 범위에 따라 패키지를 관리한다.
-package.json 과 관련한 내용은 [이 곳](./package-json.md) 에 적어 두었으니 참고하자.
+package.json 과 관련한 내용은 [이 곳](./package-json) 에 적어 두었으니 참고하자.
 
 ## yarn.lock
 

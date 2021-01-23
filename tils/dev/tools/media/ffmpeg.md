@@ -18,7 +18,7 @@ ffmpeg -i input.mp4 output.avi
 ffmpeg -i video.mp4 -b:v 1M -g 60 -hls_time 11 -hls_list_size 5 output.m3u8
 ```
 
-위와 같이 [hls](../../network/hls.md) 로 스트리밍을 서빙하게 되면 세그먼트 파일들이 무한히 생성되어 이를 관리를 해주어야 하는데, 
+위와 같이 [hls](../../network/hls) 로 스트리밍을 서빙하게 되면 세그먼트 파일들이 무한히 생성되어 이를 관리를 해주어야 하는데, 
 `ffmpeg`는 심지어 이런 관리 작업까지 처리해준다.
  
 ### 동작 원리

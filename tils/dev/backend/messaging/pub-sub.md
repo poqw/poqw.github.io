@@ -4,7 +4,7 @@
 
 ## Overview
 
-pub-sub 역시 마찬가지로 메시징 시스템이기 떄문에, [job queue](./job-queue.md) 의 Overview에서 소개된 장점을
+pub-sub 역시 마찬가지로 메시징 시스템이기 떄문에, [job queue](./job-queue) 의 Overview에서 소개된 장점을
 그대로 가져간다. 그러나 job queue 와는 달리 여러 `Consumer` 가 `Subject`의 각 메시지를 수신 할 수 있는 데다,
 메시지의 순서를 보장한다.
 
