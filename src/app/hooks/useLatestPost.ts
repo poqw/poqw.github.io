@@ -1,6 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
 
+import { TIL_DIR_NAME } from './constants'
+
 export const useLatestPostPath = (): string => {
   const { allFile } = useStaticQuery(graphql`
     {
@@ -15,5 +17,5 @@ export const useLatestPostPath = (): string => {
   `)
 
   const path = (_.first(allFile.edges) as any).node.relativePath
-  return `/til/${path.split('.')[0]}`
+  return `/${TIL_DIR_NAME}/${path.split('.')[0]}`
 }

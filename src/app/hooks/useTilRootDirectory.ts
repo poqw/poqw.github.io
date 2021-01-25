@@ -2,10 +2,11 @@ import { graphql, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
 
 import { Directory } from '../components/organisms/DirectoryList'
+import { TIL_DIR_NAME } from './constants'
 
 const toDisplayName = (name: string): string => (name.split('.')[0]).replace(/[_|-]/g, ' ')
 
-const TIL_PREFIX = '/til'
+const TIL_PREFIX = '/' + TIL_DIR_NAME
 
 export const useTilRootDirectory = (): Directory => {
   const { allMdx } = useStaticQuery(graphql`
