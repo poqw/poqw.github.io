@@ -12,7 +12,7 @@ export interface SEOPros {
 
 // TODO(poqw): Maybe 'en' lang is better for SEO?
 const SEO: React.FC<SEOPros> = ({ lang = 'ko', meta = [], title, description = '' }) => {
-  const { description: siteDescription, title: siteTile, author } = useSiteMetadata()
+  const { description: siteDescription, title: siteTitle, author } = useSiteMetadata()
   const metaDescription = description || siteDescription
 
   return (
@@ -21,7 +21,7 @@ const SEO: React.FC<SEOPros> = ({ lang = 'ko', meta = [], title, description = '
         lang
       }}
       title={title}
-      titleTemplate={`%s | ${siteTile}`}
+      titleTemplate={`%s | ${siteTitle}`}
       meta={[
         {
           name: 'description',
