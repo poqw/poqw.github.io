@@ -18,7 +18,7 @@ module.exports = {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: 'https://happy-nut.github.io/',
-        sitemap: 'https://post.github.io/sitemap.xml',
+        sitemap: 'https://happy-nut.github.io/sitemap.xml',
         policy: [{ userAgent: '*', allow: '/' }]
       }
     },
