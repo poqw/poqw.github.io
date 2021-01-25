@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://post.github.io/sitemap.xml
+Sitemap: https://happy-nut.github.io/sitemap.xml
 Host: https://happy-nut.github.io
