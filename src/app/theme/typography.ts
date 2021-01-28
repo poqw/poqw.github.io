@@ -27,22 +27,22 @@ export const typography: TypographyOptions = {
   },
   h4: {
     fontFamily: FONT_FAMILY,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     letterSpacing: 'normal',
     textTransform: 'none'
   },
   h5: {
     fontFamily: FONT_FAMILY,
-    fontSize: 17,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: 'normal',
     letterSpacing: 'normal',
     textTransform: 'none'
   },
   h6: {
     fontFamily: FONT_FAMILY,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontStyle: 'italic',
     letterSpacing: 'normal',
     textTransform: 'none'
   },

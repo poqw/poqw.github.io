@@ -41,7 +41,7 @@ export const H2: React.FC = ({
 const useH3Styles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(0.5),
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(4)
   }
 }))
 
@@ -59,7 +59,7 @@ export const H3: React.FC = ({
 const useH4Styles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(0.5),
-    marginTop: theme.spacing(1.5)
+    marginTop: theme.spacing(3)
   }
 }))
 
@@ -94,8 +94,8 @@ export const H5: React.FC = ({
 
 const useH6Styles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1.5)
+    marginBottom: theme.spacing(0.5),
+    marginTop: theme.spacing(1)
   }
 }))
 
@@ -112,8 +112,8 @@ export const H6: React.FC = ({
 
 const usePStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5)
   }
 }))
 
@@ -131,10 +131,11 @@ export const P: React.FC = ({
 const useOLStyles = makeStyles((theme) => ({
   root: {
     listStyle: 'none',
+    marginTop: theme.spacing(0.5),
     counterReset: 'cupcake',
     '& li': {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(0.5),
+      paddingBottom: theme.spacing(0.5),
       counterIncrement: 'cupcake'
     },
     '& li:before': {
@@ -158,9 +159,10 @@ export const Ol: React.FC = ({
 
 const useULStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(1),
+    marginTop: theme.spacing(0.5),
+    paddingTop: theme.spacing(0),
     '& li': {
-      paddingBottom: theme.spacing(1)
+      paddingBottom: theme.spacing(0.5)
     }
   }
 }))
