@@ -14,6 +14,7 @@
 [Gatsby](https://www.gatsbyjs.org/)를 이용해 위의 3과정에서 만든 새로운 레포지토리를 React 기반으로 호스팅할 수 있다.
 
 [gatsby-cli](https://www.gatsbyjs.org/docs/gatsby-cli/)를 설치하면 아래와 같이 간단하게 프로젝트 생성해 볼 수 있다.
+
 ```bash
 gatsby new [project-name] [starter-pack]
 ```
