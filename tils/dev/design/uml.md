@@ -80,15 +80,119 @@ UML에서는 의존성에 대해 화살표 혹은 직선으로 표기를 하는�
 
 ### 연관(Association)
 
-// TODO
+연관되다라는 건 마치 친구사이처럼 서로를 잘 알고 있다라는 뜻이다. 각 클래스에서 만들어진 인스턴스가 서로에게 메시지를 보낼 수 있는 것이다.
+연관은 어떤 클래스에서 다른 클래스를 가리키는 포인터가 되거나 참조하는 인스턴스 변수의 형태로 제일 빈번하게 구현된다.
 
-### 집합(Aggregation)
+![](../../../assets/images/uml-2.png)
 
-// TODO
+아래 예시에서 `Parent`는 `Child`의 타입과 `setParent` 인터페이스를 알고 있고, `Child`는 `Parent`의 타입과 `getName` 인터페이스를 알고 있다.
+```typescript
+class Parent {
+  private children: Child[]
 
-### 합성(Composition)
+  addChild (child: Child): void {
+    this.children.push(child)
+    child.setParent(this)
+  }
+  
+  getName (): string {}
+}
 
-// TODO
+class Child {
+  private parent: Parent
+
+  setParent (parent: Parent): void {
+    this.parent = parent
+  }
+  
+  getParentName (): string {
+    return this.parent.getName()
+  }
+}
+```
+
+방향이 있는 연관(Navigable Association)도 있는데, 둘 중에 한 쪽은 다른 쪽을 모른다는 의미다.
+
+![](../../../assets/images/uml-1.png)
+
+아래 예시에서 `Car`는 `Person` 에 대해 전혀 알지 못한다.
+
+```typescript
+class Person {
+  private car: car
+
+  buyCar (car: Car) {
+    this.car = car
+  }
+
+  drive() {
+    car.move()
+  }
+}
+
+class Car {
+  move() {
+    //... 
+  }
+}
+```
+
+#### 집합(Aggregation)
+
+집합은 서로를 알고 있지만 '전체/부분'의 관계를 표현한다는 점에서 연관의 특별한 형태라고 볼 수 있다. 그러나 암시한다는 것일 뿐, 연관과
+큰 차이는 없다.
+
+![](../../../assets/images/uml-3.png)
+
+아래 예시에서는 `Computer`가 모든 구성품들의 집합체가 된다.
+
+```typescript
+class Computer {
+  private cpu: Cpu
+  private mainBoard: MainBoard
+  private memory: Memory
+  private powerSupply: PowerSupply
+
+  constructor (
+    private readonly cpu: Cpu,
+    private readonly mainBoard: MainBoard,
+    private readonly memory: Memory,
+    private readonly powerSupply: PowerSupply
+  ) {
+  }
+}
+
+class Cpu {}
+class MainBoard {}
+class Memoy {}
+class PowerSupply {}
+```
+
+#### 합성(Composition)
+
+집합이 연관의 특별한 형태라면, 합성은 연관의 특별한 형태이다. '전체'가 자기사 소유한 '부분'의 생명주기에 책임이 있음을 의미하기 때문이다.
+이 때 생명주기에 책임을 진다는 의미는 직접 '부분'을 삭제하거나, 그 책임을 받아들인 다른 엔티티에 '부분'을 넘긴다거나 하여 '부분'이 삭제되도록 만들어야 함을 의미한다.
+생명주기를 책임지는 만큼 합성은 강한 결속이기 때문에 외부에서 '전체'에게만 의존하도록 하기 위해 캡슐화되어 사용되는 경우가 일반적이다.
+즉, '부분'의 기능을 '전체'에 접근하여 얻도록 설계된다.
+
+집합에서는 이와는 달리, '부분'의 기능을 사용하기 위해 '전체'에 접근할 필요는 없으며, '전체'가 소멸되어도 '부분'의 생존이 가능하다.
+즉, `Computer`를 폐기처분 하더라도 `Memory` 같은 걸 다른 컴퓨터에 끼워 재사용할 수 있는 것이다.
+
+![](../../../assets/images/uml-4.png)
+
+아래 예시에서는 `Transaction` 이 소멸되면 `TransactionId`도 같이 소멸된다.
+
+```typescript
+class Transaction {
+  private transactionId: TransactionId
+
+  constructor () {
+    this.transactionId = new TransactionId()
+  }
+}
+
+class TransactionId {}
+```
 
 ### 일반화(Generalization)
 
