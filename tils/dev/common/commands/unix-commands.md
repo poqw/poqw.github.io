@@ -40,12 +40,20 @@ find ../../ -name '파일 이름' -type f -exec grep -i "문자열" {} \; -print
 find . -type f -name '*.js' -delete
 ```
 
+## lsof
+
+mac 에서 netstat 대용으로 많이 쓰인다.
+
+```bash
+lsof -i :8080
+```
+
 ## netstat
 
 열려 있는 포트 확인하려고 자주 썼던 것 같다.
 
 ```bash
-netstat -lntp
+netstat -vanp tcp | grep 3000
 ```
 
 ## wget
