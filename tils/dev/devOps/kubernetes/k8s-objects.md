@@ -13,6 +13,10 @@
 
 > `Pod` 는 보통 direct 하게 Pod 으로만 쓰이는 일은 거의 없다. Deployment 에 포함된 ReplicaSet 의 템플릿에 선언되는 형식이 가장 많이 쓰인다.
 
+참고로, 한 개의 `Pod`에 두 개 이상의 컨테이너를 포함하는 일은 드물다. 스케일링하게 되면 불필요한 리소스까지 확장되어 지기 때문이다.
+따라서 두 개 이상의 컨테이너를 하나의 `Pod`에 배치하려면 같이 스케일링 되어야 하는가? 하는 질문을 항상 염두에 두어야 한다.
+여기에 해당되는 예시로, 로그 백업서버, 사이드카 등등이 있다.
+
 ### Config Pod
 
 예를 들어 컨테이너 image 를 미리 [docker hub 에 올려두었다](https://hub.docker.com/repository/docker/happynut/sample-node-app) 고 해보자.
@@ -68,10 +72,45 @@ service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   65m
 k exec -it sample-node-app sh
 ```
 
-### Pod 는 왜 만들었나
+### Liveness, Readiness, Startup probe
 
 Pod 는 그 자체로 무언가 대단한 하나의 오브젝트라기 보단, 아주 작은 부속품 정도로 생각하는 게 편하다. 당장에 어떤 서비스가 뻗었을 때 새로운 서비스를
-곧바로 띄우는 코드를 상상해보자. 서비스를 실행하는 단위가 필요하다고 느껴질 것이다. 그 단위가 바로 `Pod` 가 된다.
+곧바로 띄우는 코드를 상상해보자. 서비스를 실행하는 단위가 필요하다고 느껴질 것이다. 그 단위가 바로 `Pod`이 된다. 뿐만 아니라,
+스케일링을 하기 위한 최소 단위가 되기도 한다.
+
+그렇다면 '어떤 서비스가 뻗는다'는 건 어떻게 확인할 수 있을까? 사람이 온종일 들여다보고 있을 순 없으니, `Probe` 라는 걸 사용한다.
+즉, 주기적으로 컨테이너나 앱의 상태를 체크해보는 것이다. `Probe` 의 종류와 용도는 다음과 같다.
+
+* `livenessProbe`: 컨테이너의 상태를 확인한다. 교착상태에 있는 컨테이너를 발견하고 재시작한다.
+* `readinessProbe`: 앱 서비스의 상태를 확인한다. 앱 서비스가 활성화 되기 전까지 로드밸런싱을 비활성화 한다.
+* `startupProbe`: 앱 서비스가 시작되었는지를 확인한다. 서비스 시작을 감지하기 전까지 `livenessProbe` 와 `readinessProbe`를 비활성화한다.
+
+아래 예시에서는 `livenessProbe` 가 정의되었는데, `Probe` 를 보내기 전 3초간 기다린 후 3초마다 `/healthz`에 요청을 보내
+200 OK 응답이 떨어지는지 확인한다. 만약 500 응답코드 같이 에러를 받게 되면 `kubelet` 은 이 컨테이너를 부수고 새로 만든다. 
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+spec:
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/liveness
+    args:
+    - /server
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+        httpHeaders:
+        - name: Custom-Header
+          value: Awesome
+      initialDelaySeconds: 3
+      periodSeconds: 3
+```
 
 ## Service
 
