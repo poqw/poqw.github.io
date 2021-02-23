@@ -67,6 +67,20 @@ docker exec -it b80353d7e482 /bin/bash
 - t (tts): pseudo-TTY 를 할당한다.
 - d (detach): 명령어를 Background 에서 실행시킨다.
 
+### 컨테이너 실행하기
+
+삭제는 다음 명령어로 한다.
+
+```bash
+docker rm [CONTAINER_ID]
+```
+
+도커 쓰다보면 안쓰지만 `docker ps -a` 에 계속 잡히는 애들이 있는데, 주로 exited 되고 난 이후 안 쓰이는 애들이다. 한꺼번에 삭제하려면:
+
+```bash
+docker rm $(docker ps -a -q -f status=exited)
+```
+
 ### File copy
 
 Host에서 Container로 파일(혹은 디렉토리)를 옮기고 싶은 경우:
