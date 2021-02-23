@@ -65,3 +65,9 @@ wget [URL] -o output.text
 ```
 
 - `-o` (output-file): 아웃풋 파일이름을 지정한다.
+
+곧바로 터미널에 내용을 출력하고 싶다면:
+
+```bash
+wget -O- -q 10.4.13.5:8080
+```
