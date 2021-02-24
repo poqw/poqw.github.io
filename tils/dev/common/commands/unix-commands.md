@@ -56,6 +56,15 @@ lsof -i :8080
 netstat -vanp tcp | grep 3000
 ```
 
+## wc
+
+결과물의 라인 수를 파악할 때 주로 쓰인다.
+
+```bash
+k get pod -n default | wc -l
+```
+
+
 ## wget
 
 Web get의 약자라 한다.
