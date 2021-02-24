@@ -120,7 +120,52 @@ spec:
 
 ### Config Service
 
-위 `Pod` 섹션에 만들어 놓은 `Pod`가 여전히 떠 있는 상황이라고 했을 때, 아래와 같이 설정해볼 수 있다.
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-node-app
+spec:
+  type: ClusterIP # ...
+  sessionAffinity: ClientIP
+  selector:
+    app: sample-node-app
+  ports:
+    - name: http
+      port: 80 
+```
+
+- `selector`: `app` 에 지정한 이름으로 Cluster 안에서 어떤 `Pod` 에게 인터페이스를 뚫어줘야 하는지를 찾는다.
+- `ports`: 포트에 관한 설정 정보를 적는다. 이 때, `nodePort`는 30000~32767 사이에 있는 숫자여야 한다.
+- `type`: `ClusterIP`, `NodePort`, `LoadBalancer`, `ExternalName` 같은 값이 들어갈 수 있는데, 아래에서 자세히 설명한다.
+
+`Service`가 담당하고 있는 `Pod`이 여러개 라면 기본적으로 트래픽을 라운드 로빈 방식을 통해 분산한다. 그러나 Http 웹 페이지같은
+정적 사이트는 cookie나 sessions을 이용하는데, 이러한 인증데이터를 발급하지 않았던 새로운 `Pod`으로 트래픽이 분산되면
+클라이언트 인증에 혼란이 생긴다. 따라서 `sessionAffinity` 를 `ClientIP`로 설정(기본값은 `None`이다)하여 클라이언트의 IP를 구분, 항상 같은 `Pod`에 붙도록 설정할 수 있다.
+  
+#### ClusterIP
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-node-app
+spec:
+  selector:
+    app: sample-node-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+```
+
+`ClusterIP` 는 클러스터 내부 에서 Pod 끼리 통신해야 하는 경우에 쓰인다. `type`을 지정하지 않은 경우의 기본 값이다.
+`targetPort`는 지정하지 않는 경우 `port`와 같은 값을 쓰는데, 각각 컨테이너의 포트와 서비스의 포트를 의미한다.
+
+서비스가 잘 노출되는지 확인해보려면 `busybox` 같은 간단한 컨테이너를 띄워서 Cluster IP에 `curl`이나 `wget` 같은 걸로
+포트로 서비스가 되고 있는지 확인해 볼 수 있다.
+
+### NodePort
 
 ```yaml
 apiVersion: v1
@@ -137,12 +182,35 @@ spec:
   type: NodePort
 ```
 
-`Pod`에서는 보지 못했던 항목들이 몇 개 추가되었다. 짚고 넘어가보자.
+`NodePort`는 말그대로 Node 의 물리적인 포트를 열어버리겠다는 것이다. `ClusterIP`의 확장이라고 보면 된다.
+노드를 만약 3개 운영하고 있다고 했을 때, `NodePort` 로 30080 번 포트를 열어버리면 모든 노드 IP의 30080번 포트가 열리게 된다.
 
-- `selector`: `app` 에 지정한 이름으로 Cluster 안에서 어떤 Pod 에게 인터페이스를 뚫어줘야 하는지를 찾는다.
-- `ports`: 포트에 관한 설정 정보를 적는다. 이 때, `nodePort`는 30000 보다 큰 숫자여야 한다.
-- `type`: `ClusterIP`, `NodePort`, `LoadBalancer`, `ExternalName` 같은 값이 들어갈 수 있는데,
-  `ClusterIP` 는 클러스터 내부 접근용이고, 외부용이 바로 `NodePort` 이다.
+노드들의 External IP는 다음과 같이 확인해 볼 수 있다. `curl` 같은 걸 날렸을 때 forbidden이 뜬다면 방화벽 정책을 살펴봐야 한다.
+
+```bash
+k get nodes -o wide
+```
+
+### LoadBalancer
+
+`NodePort`의 확장이다. `NodePort`가 노드의 물리적인 IP 주소와 포트로 직접 접속해야 한다는 한계점이 있다면,
+`LocasBalancer`는 새로운 IP를 할당받고, 원하는 Port를 매핑까지 해준다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-node-app
+spec:
+  selector:
+    app: sample-node-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  clusterIP: 10.0.171.239
+  type: LoadBalancer
+```
 
 ### Run Service
 
