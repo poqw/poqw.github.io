@@ -204,3 +204,77 @@ parameters:
 ```
 
 `persistentVolumeClaim`으로 필요한 요청(Claim)을 걸면, 그 요청의 spec에 따라 자동으로 Storage class가 PV를 만들어 준다.
+
+## StatefulSet
+
+StatefulSet은 볼륨이라기 보단 Deployment와 비슷한 레벨이다. 그럼에도 여기다 적는 이유는, 매번 Stateless한 pod를 부수고
+생성하며 관리하는 Deployment와는 달리 StatefulSet은 pod의 상태를 유지시키기 때문이다. 즉, 기존 storage class나 PV 같은 것들로
+부숴진 pod과 새로 만들어진 pod를 연결하는 작업은 매우 까다로운데, 이를 대신 해주고 관리하는 것이 StatefulSet인 것이다.
+
+pod의 네트워크 아이디를 유지하려면 헤드리스 서비스가 있어야 한다. 헤드리스 서비스는 아래처럼 `clusterIP: None` 인 서비스다.
+헤드리스 서비스 자체에는 IP가 할당되지 않지만 헤드리스 서비스의 도메인 네임을 이용해 각 pod에 접근할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+    - port: 80
+      name: web
+  clusterIP: None
+  selector:
+    app: nginx
+```
+
+아래는 StatefulSet 설정 파일이다.
+
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  serviceName: "nginx" # 헤드레스 서비스를 지정한다.
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 10 # 강제 종료까지 대기하는 시간
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates: # PVC 설정을 저장하는 부분
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 1Gi
+```
+
+`replicas`의 개수에 따라 `0`~`n-1`까지 pod 에는 고유한 식별 인덱스가 부여되는데, 이 인덱스에 따라
+
+* 배포될 때는 0 ~ n-1 순서로
+* 종료나 업데이트 될 떄는 n-1 ~ 0 순서로
+
+진행이 된다. 또한, 각 pod는 자신만의 PV와 PVC를 할당받는다.
+
+스케일이 5에서 3으로 줄었다고 해도, PV, PVC는 삭제되지 않고 남았다가, 나중에 스케일이 5로 다시 증가하면 이미 있던 PV, PVC에
+다시 연결해준다. 이것은 아예 StatefulSet을 삭제했다가 다시 만들어도 마찬가지이다.
