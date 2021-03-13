@@ -112,6 +112,242 @@ spec:
       periodSeconds: 3
 ```
 
+### Env, ConfigMap, Secret
+
+컨에티어 안에서 쓰일 환경 변수를 다음과 같이 등록할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envar-demo
+  labels:
+    purpose: demonstrate-envars
+spec:
+  containers:
+  - name: envar-demo-container
+    image: gcr.io/google-samples/node-hello:1.0
+    env:
+    - name: DEMO_ENV
+      value: "Hello from the environment"
+    - name: DEMO_CONFIGMAP
+      valueFrom:
+        configMapKeyRef:
+          key: "key-of-configmap"
+    - name: DEMO_SECRET
+      valueFrom:
+        secretKeyRef:
+          key: "key-of-secret"
+    envFrom:
+    - configMapRef:
+        name: "config-map-name"
+    - secretRef:
+        name: "secret-name"
+```
+
+위에서 확인할 수 있는 바와 같이 value 를 직접 등록할 수도, 외부(ConfigMap, Secret)에서 참조할 수도 있다.
+
+ConfigMap은 다음과 같이 만들 수도 있다.
+
+```bash
+echo -n 1234 > test
+k create configmap config-map-name --from-file=test
+```
+
+혹은, 아래처럼 yaml로 바로 만들 수도 있다.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-name
+data:
+  # property-like keys; each key maps to a simple value
+  player_initial_lives: "3"
+  ui_properties_file_name: "user-interface.properties"
+
+  # file-like keys
+  game.properties: |
+    enemy.types=aliens,monsters
+    player.maximum-lives=5    
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+```
+
+Secret을 만드는 것도 ConfigMap과 별반 차이 없는데, 차이점은 Base64로 인코딩된 값을 넣어주어야 한다는 점이 다르다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-sa-sample
+  annotations:
+    kubernetes.io/service-account.name: "sa-name"
+type: kubernetes.io/service-account-token
+data:
+  # You can include additional key value pairs as you do with Opaque Secrets
+  extra: YmFyCg==
+```
+
+저렇게 인코딩 된 값은 런타임에서 디코딩된 채로 사용된다.
+
+ConfigMap이나 Secret 은 `volumeMounts`, `volumes`를 통해 컨테이너의 파일시스템에 마운트할 수도 있다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      defaultMode: 0400
+```
+
+### Init containers
+
+Pod에 container를 설정할 때 `containers`안에다가 설정한다는 것은, 여러 컨테이너를 한 Pod에 실을 수 있다는 뜻이기도 하다.
+필요에 따라 여러 컨테이너를 Pod에 실을 수 있겠으나, 여기서는 Init container를 올리는 방법을 설명한다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
+```
+
+myservice나 mydb 가 뜨지 않으면 주 컨테이너인 `myapp-container`가 뜨지 않도록 하는 설정이다.
+만약 원하는 init 컨테이너가 뜨지 않을 경우 STATUS는 아래처럼 나타난다. 
+```
+NAME        READY   STATUS     RESTARTS   AGE
+myapp-pod   0/1     Init:0/2   0          2s
+```
+
+### Resource request and limit
+
+리소스는 메모리와 CPU를 조절할 수 있으며, 각 단위는 다음과 같다.
+
+* CPU: m (이 단위는 밀리CPU고, 정수로 입력할 수도 있다. 1 CPU = 1000m CPU)
+* Memory: Ti, Gi, Mi
+
+Memory 단위 보면 뒤에 i가 붙어 있는데, 이건 1024씩 배수가 된다는 것을 의미한다. 그러므로 컴퓨터 쪽이라면 되도록 i를 붙여주는 게 좋다.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "1m"
+          limits:
+            memory: "400Mi"
+            cpu: "2m"
+```
+
+위는 nignx 앱에 리소스로 최소 200메가, 최대 400메가의 메모리와 최소 1개, 최대 2개의 밀리 CPU를 지정한 모습이다.
+만약 리소스를 너무 과다하게 특정한 경우, 아예 앱이 안떠버리거나 다른 앱이 뜨는 걸 방지하게 되므로 적절하게 설정해야 한다.
+
+클라우드 환경이라면 리소스 확인을 위해 `top` 을 사용해볼수 있다.
+
+```
+kubectl top pod
+NAME                                CPU(cores)   MEMORY(bytes)
+nginx-deployment-6f4c9dd4f4-4d9h6   0m           2Mi
+nginx-deployment-6f4c9dd4f4-9kqp5   0m           2Mi
+nginx-deployment-6f4c9dd4f4-mmml6   0m           2Mi
+```
+
+Pod 마다 리소스 정책을 설정하는 것이 불편하다면, 아래와 같이 LimitRange를 쓰는 방법도 있다.
+
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limit-mem-cpu-per-container
+spec:
+  limits:
+  - max:
+      cpu: "800m"
+      memory: "1Gi"
+    min:
+      cpu: "100m"
+      memory: "99Mi"
+    default:
+      cpu: "700m"
+      memory: "900Mi"
+    defaultRequest:
+      cpu: "110m"
+      memory: "111Mi"
+    type: Container
+```
+
+이 경우, 같은 Namespace 안에서는 이 LimitRange의 설정을 따르게 된다. `type`에는 `Container` 말고도, `Pod` 나 `PersistentVolumeClaim` 같은 것들도 들어갈 수 있다.
+
+각각에 대한 정책 뿐만 아니라, 리소스 총량을 제한하는 방법도 있다. `ResourceQuota`를 쓰는 방법이다.
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: object-counts
+spec:
+  hard:
+    configmaps: "10" 
+    persistentvolumeclaims: "4" 
+    replicationcontrollers: "20" 
+    secrets: "10" 
+    services: "10"
+```
+
+아래 명령어로 쿼타를 조회해볼 수 있다.
+
+```bash
+k describe resourcequotas
+```
+
 ## ReplicaSet
 
 `Pod`는 언제라도 죽을 수 있다. 이 녀석을 다시 살리기 위해 직접 관리자가 접속해서 부팅해줘야 할까? 아니다. 우리에겐 `ReplicaSet` 이 있기 때문이다.
