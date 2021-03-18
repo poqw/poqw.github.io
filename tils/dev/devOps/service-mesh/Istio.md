@@ -38,3 +38,23 @@ Envoy 는 c++로 개발된 성능이 우수한 프록시로 여기선 각 Micros
 - 기존에 서비스가 장애가 나서 뻗게 되면 ReplicaSet 에 의해 되살아나 곧바로 서비스를 운영시킬 수는 있었지만, 실패한 요청을
 다시 되돌릴 수는 없었다. 하지만 위와 같은 구조를 통해 실패한 요청을 재수행하는 것이 가능해져 장애 복구 능력이 더욱 향상되었다.
 - 코드로 구현하지 않더라도 로드벨런싱, 보안 기능(TLS, 암호화, 인증)과 같은 강력한 API들을 사용할 수 있다.
+
+## 설치
+
+설치 방법은 매우 간단하다. [가이드라인](https://istio.io/latest/docs/setup/getting-started/) 을 따르면 딱히 문제는 없을 것이다.
+주의할만한 점이라면, `profile=demo` 옵션을 통해 최대한 많은 옵션을 지원하도록 하는 게 좋다는 것.
+
+`profile` 리스트는 다음 명령어로 조회할 수 있다.
+
+```bash
+istioctl profile list
+```
+
+## Istio dashboard
+
+[Kiali](https://istio.io/latest/docs/ops/integrations/kiali/#installation) 설치하고 다음 명령어를 통해 바로 접속이 가능하다.
+참고로, [prometheus](https://istio.io/latest/docs/ops/integrations/prometheus/) 도 같이 설치해주어야 한다.
+
+```bash
+istioctl dashboard kiali
+```
