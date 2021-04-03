@@ -72,6 +72,9 @@ apiGroups 목록은 [여기서](https://kubernetes.io/docs/reference/generated/k
 apiGroups는 뭘 주어야 하는 걸까? 리소스에 넣는 녀석들이 포함된 API 그룹을 찾아서 넣어주면 된다. 예를 들어 `pods`는 core API 안에 있기 때문에 apiGroups에 `""`이 들어가는 것이다. 
 그럼 거기에 들어가는 verbs 는 어떻게 확인을 할까? [여기서](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#determine-the-request-verb) 확인이 가능하다.
 
+가장 빠른 방법은, 유저와 namespace를 이용해 직접 허용하고자 하는 커맨드를 날려보는 것이다. 그럼 에러메시지로 어떤 API group에 있는 어떤 리소스에 대한 권한이 없다고
+에러가 표시되므로, 그걸 이용해서 위 필드를 세팅할 수 있다.
+
 위의 Role을 유저 happynut에게 묶어주려면 아래처럼 RoleBinding을 만들어준다.
 
 ```yaml
