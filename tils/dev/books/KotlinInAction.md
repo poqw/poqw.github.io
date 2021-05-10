@@ -78,8 +78,8 @@ launch(newSingleThreadContext("MyOwnThread")) {
 
 `launch`, `async`, `runBlocking` 은 코루틴 빌더다. 코루틴을 만들어주는 함수들이기 때문이다. 이 외에도 2가지가 더 있다.
 
-* `produce`: 정해진 채널로 데이터를 스트림으로 보내는 코루틴을 만든다. ReceiveChannel<>을 반환한다.
-* `actor`: 정해진 채널로 메시지를 받아 처리하는 액터를 코루틴으로 만든다. SendChannel<> 채널의 send 메소드를 통해 엑터에게 메시지를 전달한다.
+* `produce`: 정해진 채널로 데이터를 스트림으로 보내는 코루틴을 만든다. ReceiveChannel을 반환한다.
+* `actor`: 정해진 채널로 메시지를 받아 처리하는 액터를 코루틴으로 만든다. SendChannel 채널의 send 메소드를 통해 엑터에게 메시지를 전달한다.
 
 일시 중단 함수들은 다음과 같다.
 
