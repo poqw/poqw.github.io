@@ -100,7 +100,7 @@ fun main () = runBlocking {
 - 람다 일시 중단: 람다에 suspend 가 붙은 형태
 - 코루틴 디스패처: 코루틴을 시작하거나 재개할 스레드를 결정하기 위해 코루틴 디스패처가 사용된다. 모든 코루틴 디스패처는 CoroutineDispatcher 인터페이스를 구현해야 한다.
 - 코루틴 빌더: suspend lambda를 받아 실행시키는 코루틴을 생성하는 함수다.
-    - async: Deffered<T> 를 반환한다.
+    - async: `Deffered<T>` 를 반환한다.
     - launch: Job 을 반환한다.
     - runBlocking: 내부 코루틴 실행 끝날 때까지 현재 스레드 차단.
 
