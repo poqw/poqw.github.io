@@ -186,7 +186,7 @@ result => bar
 ### 코루틴과의 결합
 
 kotlinx.coroutines.reactor 라이브러리를 이용하여 코루틴과 reactor를 결합해서 사용해볼 수 있다.
-아래 코드에서 쓰이는 `mono {}` 는 코루틴 빌더이면서 Mono<T> 를 반환하기 때문에 `subscriberContext`를 붙이는 것이 가능하다.
+아래 코드에서 쓰이는 `mono {}` 는 코루틴 빌더이면서 `Mono<T>` 를 반환하기 때문에 `subscriberContext`를 붙이는 것이 가능하다.
 
 ```kotlin
 runBlocking {
