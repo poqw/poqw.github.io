@@ -213,49 +213,6 @@ resolves #xxx
 resolved #xxx
 ```
 
-## Git credential
-
-여러 github 계정을 관리하고자 하는 경우 매번 id/pw를 입력하는 건 짜증나는 일이다.
-해결방법을 알아보자.
-
-### For Linux
-
-disk나 캐시 데몬을 통해 이 정보를 저장해 두고, 매번 입력하지 않도록 할 수 있다.
-
-다음은 캐시 데몬을 쓰는 방법이다. 기본 15분간 유지되고 옵션으로 시간을 줄이거나 늘릴 수 있다.
-```bash
-git config credential.helper cache
-```
-캐시 데몬을 날려버리고 싶다면:
-```bash
-git credential-cache exit
-```
-
-다음은 Disk를 쓰는 방법이다. 영구적이지만 대신 파일에 민감한 정보가 노출된다.
-
-```bash
-git config credential.helper store
-```
-
-### Git credential for Mac
-
-멕은 좀더 우아하다.
-
-아래 명령어로 credential-osxkeychain 이 설치되어 있는지 확인해본다.
-```bash
-git credential-osxkeychain
-```
-
-만약 설치되지 않았다면:
-```bash
-brew install git
-```
-Global 하게 설정해버리자:
-```bash
-git config --global credential.helper osxkeychain
-```
-위와 같이 설정되면 멕의 키체인에 https로 github에 접근할 때 credential을 저장해준다.
-
 ## Git difftool
 
 git config 에서 difftool 로 vim 설정해두고 zshrc에서
