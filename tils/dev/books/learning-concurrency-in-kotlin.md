@@ -1,6 +1,6 @@
 # 코틀린 동시성 프로그래밍
 
-## 1장
+## 1. Hello, Concurrent World!
 
 어플리케이션이 시작되면 OS는 프로세스를 생성하고 메인 스레드를 연결한 뒤 해당 스레드를 실행한다.
 
@@ -103,4 +103,3 @@ fun main () = runBlocking {
     - async: `Deffered<T>` 를 반환한다.
     - launch: Job 을 반환한다.
     - runBlocking: 내부 코루틴 실행 끝날 때까지 현재 스레드 차단.
-
