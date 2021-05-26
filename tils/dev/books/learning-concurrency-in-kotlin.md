@@ -284,7 +284,7 @@ fun doSomethingAsync(
 
 잡은 5가지 상태를 가질 수 있다.
 
-![https://thdev.tech/images/posts/2019/04/Init-Coroutines-Job/coroutine-job.png](https://thdev.tech/images/posts/2019/04/Init-Coroutines-Job/coroutine-job.png)
+![](https://thdev.tech/images/posts/2019/04/Init-Coroutines-Job/coroutine-job.png)
 
 - New: 존재하지만 아직 실행되지 않은 잡
 - Active: 실행 중인 잡, 일시 중단된 잡도 여기에 포함
