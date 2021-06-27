@@ -437,3 +437,238 @@ suspend fun failedConcurrentSum(): Int = coroutineScope {
 ```
 
 `one`은 무한히 기다리는데, 같은 레벨의 `two`에서 exception이 발생하면 `one`도 같이 취소된다.
+
+## Coroutine context and Dispatchers
+
+코루틴은 항상 CoroutineContext 안에서 실행된다. 이 코루틴 컨텍스트는 여러 Element들의 집합이고, 가장 메인이 되는 Element는 코루틴의 Job과 그 Job의 Dispatcher다.
+
+### Dispatchers and Threads
+
+코루틴 디스패처를 포함한 코루틴 컨텍스트는 어떤 스레드(들)에서 코루틴이 실행되어야 하는지를 결정한다. 코루틴 디스패처는 코루틴이 특정 스레드나 스레드 풀에서 실행되게 하거나
+혹은 아예 아무런 제한 없이(Unconfined) 실행되도록 할 수 있다.
+
+`async`나 `launch` 같은 코루틴 빌더들은 optional로 CoroutineContext 파라미터를 받음으로써 디스패처를 특정할 수 있다. 컨텍스트는 여러 Element들의 집합인데
+Dispatcher 또한 Element이므로 컨텍스트가 될 수 있다.
+
+```kotlin
+launch { // context of the parent, main runBlocking coroutine
+    println("main runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+}
+launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+    println("Unconfined            : I'm working in thread ${Thread.currentThread().name}")
+}
+launch(Dispatchers.Default) { // will get dispatched to DefaultDispatcher 
+    println("Default               : I'm working in thread ${Thread.currentThread().name}")
+}
+launch(newSingleThreadContext("MyOwnThread")) { // will get its own new thread
+    println("newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}")
+}
+```
+
+만약 코루틴 빌더가 컨텍스트를 인자로 받지 않으면, 부모 컨텍스트를 상속받는다. 
+
+### Unconfined vs Confined Dispatcher
+
+Unconfined 디스패처는 맨 처음 중단 함수를 만났을 때 코루틴을 caller thread에서 실행시키고, 그 이후부터는 손을 놓아버린다. 즉, 중단 함수가 일을 끝내고 돌아왔을 때
+실행될 스레드는 맨 처음의 caller thread가 아니라 그 코루틴이 실행되었던 스레드가 된다. Unconfined 디스패처는 일반적으로는 사용될 일이 거의 없다고 보면 된다.
+
+
+Confined 디스패처는 코루틴이 일을 끝내고 돌아와도 caller thread를 유지 시켜준다. 다음 예시를 보자.
+
+```kotlin
+launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+    println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
+    delay(500)
+    println("Unconfined      : After delay in thread ${Thread.currentThread().name}")
+}
+launch { // context of the parent, main runBlocking coroutine
+    println("main runBlocking: I'm working in thread ${Thread.currentThread().name}")
+    delay(1000)
+    println("main runBlocking: After delay in thread ${Thread.currentThread().name}")
+}
+```
+
+### Debugging coroutines and threads
+
+코루틴은 한 스레드에서 suspend되었다가 다른 스레드에서 resume될 수 있어서, 디버깅하기가 까다롭다. 이 문제점을 해결하기 위해 IDEA 에서는 디버거로 브레이크 포인트를 만나면
+코루틴인 경우 Coroutines 라는 탭을 하나 더 보여준다.
+
+해당 탭에서는 어떤 코루틴들이 현재 존재하는지, 그리고 각 코루틴의 상태(SUSPENDED, RUNNING, CREATED, ..)를 보여준다.
+
+만약 디버거를 쓰지 않을 작정이라면, `-Dkotlinx.coroutines.debug` 라는 옵션은 JVM에 추가해서 어떤 코루틴에서 해당 코드가 실행되었는지 로깅을 해볼 수 있다.
+
+마지막으로, 디버깅 목적으로 코루틴에 직접 이름을 지정하는 방법도 있다.
+
+```kotlin
+log("Started main coroutine")
+// run two background value computations
+val v1 = async(CoroutineName("v1coroutine")) {
+    delay(500)
+    log("Computing v1")
+    252
+}
+val v2 = async(CoroutineName("v2coroutine")) {
+    delay(1000)
+    log("Computing v2")
+    6
+}
+log("The answer for v1 / v2 = ${v1.await() / v2.await()}")
+```
+
+### Jumping between threads
+
+`withContext`를 통해 다른 컨텍스트에서 실행되고 있는 코루틴 안에서도 원하는 컨텍스트를 인자로 주어 코루틴을 실행시킬 수 있다.
+
+```kotlin
+newSingleThreadContext("Ctx1").use { ctx1 ->
+    newSingleThreadContext("Ctx2").use { ctx2 ->
+        runBlocking(ctx1) {
+            log("Started in ctx1")
+            withContext(ctx2) {
+                log("Working in ctx2")
+            }
+            log("Back to ctx1")
+        }
+    }
+}
+```
+
+`.use()`를 사용하여 Single thread context를 생성하고 더 이상 쓰이지 않으면 자동으로 release 하도록 할 수 있다.
+
+결과는 다음과 같다. `runBlocking` 을 만나면서 Ctx1의 `@coroutine#1` 가 생성되었고, `withContext` 에서 ctx2 가 인자로 들어가면서 Ctx2의 `@coroutine#1` 가 새로 생성된다.
+마지막으로 돌아왔을 때는 다시 Ctx1 의 `@coroutine#1`에서 실행된다.
+
+```
+[Ctx1 @coroutine#1] Started in ctx1
+[Ctx2 @coroutine#1] Working in ctx2
+[Ctx1 @coroutine#1] Back to ctx1
+```
+
+### Job in the context
+
+Job도 Context라는 집합에 속한 Element 중 하나라고 했었다. 다음과 같은 코드로 확인이 가능하다. CoroutineContext는 operator get을 오버라이딩 하고 있어서
+`[]` 로 접근이 가능하다. 코루틴 안에서 사용되던 `isActive` 는 `coroutineContext[Job]?.isActive == true`의 숏컷이다.
+
+```kotlin
+fun main() = runBlocking<Unit> {
+    println("My job is ${coroutineContext[Job]}")    
+}
+```
+
+### Children of a coroutine
+
+Structured concurrency에서 게속 나왔던 이야기다. 아래 예시로 설명은 충분할 듯 하다.
+
+```kotlin
+val request = launch {
+    launch(Job()) { // 새로운 Job 객체를 받았다. 부모 코루틴 컨텍스트를 상속받지 않음.
+        println("job1: I run in my own Job and execute independently!")
+        delay(1000)
+        println("job1: I am not affected by cancellation of the request") // 따라서 요건 print된다.
+    }
+
+    launch { // 부모 코루틴 컨텍스트를 상속받는다.
+        delay(100)
+        println("job2: I am a child of the request coroutine")
+        delay(1000)
+        println("job2: I will not execute this line if my parent request is cancelled") // 따라서 요건 찍히지 않는다.
+    }
+}
+delay(500)
+request.cancel() // 0.5초가 지나면 request를 캔슬한다.
+delay(1000)
+println("main: Who has survived request cancellation?")
+```
+
+### Parental responsibilities
+
+가장 최상단 코루틴에서 `join`을 해주기만 하면 그 자식들을 자동으로 기다린다.
+
+```kotlin
+val request = launch {
+    repeat(3) { i -> // launch a few children jobs
+        launch  {
+            delay((i + 1) * 200L) // variable delay 200ms, 400ms, 600ms
+            println("Coroutine $i is done")
+        }
+    }
+    println("request: I'm done and I don't explicitly join my children that are still active")
+}
+request.join() // wait for completion of the request, including all its children
+println("Now processing of the request is complete")
+```
+
+### Combining context elements
+
+`+` 연산자로 여러 element들을 합쳐서 하나의 컨텍스트로 만들 수 있다.
+
+```kotlin
+launch(Dispatchers.Default + CoroutineName("test")) {
+    println("I'm working in thread ${Thread.currentThread().name}")
+}
+```
+
+### Coroutine Scope
+
+코루틴 스코프를 지정하여 라이프 사이클을 가지는 오브젝트 안에서 일어나는 코루틴들의 라이프 사이클을 제한할 수 있다.
+
+코루틴 스코프를 만드는 2가지 팩토리 함수는 다음과 같다.
+
+* CoroutineScope(): 일반적인 용도의 스코프를 생성한다.
+* MainScope(): 기본 디스패처를 `Dispatchers.Main` 으로 지정하여 스코프를 만든다.
+
+```kotlinclass Activity {
+    private val mainScope = MainScope()
+
+    fun destroy() {
+        mainScope.cancel()
+    }
+    
+    // class Activity continues
+    fun doSomething() {
+        // launch ten coroutines for a demo, each working for a different time
+        repeat(10) { i ->
+            mainScope.launch {
+                delay((i + 1) * 200L) // variable delay 200ms, 400ms, ... etc
+                println("Coroutine $i is done")
+            }
+        }
+    }
+}
+```
+
+`activity.destroy()`가 호출되면 더 이상의 코루틴은 생성되거나 실행되지 않는다. 실행 중이던 코루틴은 cancel 된다.
+
+```kotlin
+val activity = Activity()
+activity.doSomething() // run test function
+println("Launched coroutines")
+delay(500L) // delay for half a second
+println("Destroying activity!")
+activity.destroy() // cancels all coroutines
+delay(1000) // visually confirm that they don't work
+```
+
+### Thread-local data
+
+코루틴은 단 하나의 스레드에 국한되지 않기 떄문에, Thread-local 변수를 사용하는 것이 까다롭다. `ThreadLocal` 에다가 `asContextElement()` 확장 함수를 달아 이 문제를 해결했다.
+
+```kotlin
+val threadLocal = ThreadLocal<String?>() // declare thread-local variable
+
+fun main() = runBlocking<Unit> {
+    threadLocal.set("main")
+    println("Pre-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+    val job = launch(Dispatchers.Default + threadLocal.asContextElement(value = "launch")) {
+        println("Launch start, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+        yield()
+        println("After yield, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+    }
+    job.join()
+    println("Post-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")    
+}
+```
+
+컨텍스트 전달하는 것을 빼먹기가 쉬우므로, `ensurePresent`함수를 써서 safely 하게 값을 가져오는 것이 좋다(Fail-fast 전략)
+
+logging MDC나 Thread-locals 를 쓰는 다른 라이브러리와 코루틴을 합칠 때도 ThreadContextElement 인터페이스에 맞추어 구현을 하면 어떻게 잘 될지도 모르겠다.
